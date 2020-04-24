@@ -1,17 +1,17 @@
 package com.dicoding.tourismapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import com.dicoding.tourismapp.favorite.FavoriteFragment
+import com.dicoding.tourismapp.home.HomeFragment
 import com.google.android.material.navigation.NavigationView
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
-
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -19,10 +19,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-        fab.setOnClickListener(View.OnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        })
 
         val toggle = ActionBarDrawerToggle(
             this,
@@ -39,9 +35,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         supportFragmentManager.beginTransaction()
             .replace(R.id.nav_host_fragment, HomeFragment())
             .commit()
-        if (supportActionBar != null) {
-            supportActionBar!!.setTitle(getString(R.string.menu_home))
-        }
+        supportActionBar?.title = getString(R.string.app_name)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -50,15 +44,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when (item.itemId) {
             R.id.nav_home -> {
                 fragment = HomeFragment()
-                title = getString(R.string.menu_home)
-            }
-            R.id.nav_map -> {
-                fragment = MapFragment()
-                title = getString(R.string.menu_map)
+                title = getString(R.string.app_name)
             }
             R.id.nav_favorite -> {
                 fragment = FavoriteFragment()
                 title = getString(R.string.menu_favorite)
+            }
+            R.id.nav_map -> {
+                Toast.makeText(this, "Coming soon", Toast.LENGTH_SHORT).show()
             }
         }
         if (fragment != null) {
@@ -66,9 +59,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 .replace(R.id.nav_host_fragment, fragment)
                 .commit()
         }
-        if (supportActionBar != null) {
-            supportActionBar!!.setTitle(title)
-        }
+        supportActionBar?.title = title
+
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
     }
