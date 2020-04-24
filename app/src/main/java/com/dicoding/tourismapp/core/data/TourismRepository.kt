@@ -44,7 +44,7 @@ class TourismRepository private constructor(
                 val tourismList = ArrayList<TourismEntity>()
                 for (response in data) {
                     val tourism = TourismEntity(
-                            tourismId = response.caption.toString(),
+                            tourismId = response.caption,
                             thumbnail = response.thumbnail,
                             address = response.address,
                             like = response.like,
@@ -58,6 +58,7 @@ class TourismRepository private constructor(
                         )
                     tourismList.add(tourism)
                 }
+
                 localDataSource.insertTourism(tourismList)
             }
         }.asLiveData()

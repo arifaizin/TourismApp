@@ -4,30 +4,30 @@ import com.google.gson.annotations.SerializedName
 
 data class DataItem(
     @field:SerializedName("thumbnail")
-    val thumbnail: String? = null,
+    val thumbnail: String,
 
     @field:SerializedName("address")
-    val address: String? = null,
+    val address: String,
 
     @field:SerializedName("like")
-    val like: String? = null,
+    val like: String,
 
     @field:SerializedName("latitude")
-    val latitude: Double? = null,
+    val latitude: Double,
 
     @field:SerializedName("rating")
-    val rating: Double? = null,
+    val rating: Double,
 
     @field:SerializedName("caption")
-    val caption: String? = null,
+    val caption: String,
 
     @field:SerializedName("description")
-    val description: String? = null,
+    val description: String,
 
     @field:SerializedName("image1")
-    val image1: String? = null,
+    val image1: String,
 
     @field:SerializedName("longitude")
-    val longitude: Double? = null
+    val longitude: Double
 )
 
