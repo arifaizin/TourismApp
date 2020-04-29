@@ -10,9 +10,9 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dicoding.tourismapp.core.valueobject.Status
 import com.dicoding.tourismapp.R
 import com.dicoding.tourismapp.core.ui.TourismAdapter
+import com.dicoding.tourismapp.core.data.Resource
 import com.dicoding.tourismapp.detail.DetailHomeActivity
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -41,15 +41,15 @@ class HomeFragment : Fragment() {
 
             viewModel.getTourism().observe(this, Observer { tourism ->
                 if (tourism != null) {
-                    when (tourism.status) {
-                        Status.LOADING -> progress_bar.visibility = View.VISIBLE
-                        Status.SUCCESS -> {
+                    when (tourism) {
+                        is Resource.Loading -> progress_bar.visibility = View.VISIBLE
+                        is Resource.Success -> {
                             progress_bar.visibility = View.GONE
                             tourismAdapter.setData(tourism.data)
                         }
-                        Status.ERROR -> {
+                        is Resource.Error -> {
                             progress_bar.visibility = View.GONE
-                            Toast.makeText(context, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "Terjadi kesalahan" + tourism.message, Toast.LENGTH_SHORT).show()
                         }
                     }
                 }

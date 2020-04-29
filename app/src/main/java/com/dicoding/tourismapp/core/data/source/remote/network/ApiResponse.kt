@@ -1,18 +1,9 @@
 package com.dicoding.tourismapp.core.data.source.remote.network
 
-import androidx.annotation.Nullable
+sealed class ApiResponse<out R> {
 
-class ApiResponse<T>(
-    val status: StatusResponse, @param:Nullable @field:Nullable
-    val body: T, @param:Nullable @field:Nullable
-    val message: String?
-) {
+    data class Success<out T>(val data: T) : ApiResponse<T>()
+    data class Error(val errorMessage: String) : ApiResponse<Nothing>()
+    object Empty : ApiResponse<Nothing>()
 
-    companion object {
-        fun <T> success(@Nullable body: T): ApiResponse<T> = ApiResponse(
-            StatusResponse.SUCCESS,
-            body,
-            null
-        )
-    }
 }

@@ -7,7 +7,6 @@ import com.dicoding.tourismapp.core.data.source.local.entity.TourismEntity
 import com.dicoding.tourismapp.core.data.source.remote.RemoteDataSource
 import com.dicoding.tourismapp.core.data.source.remote.response.TourismResponse
 import com.dicoding.tourismapp.core.utils.AppExecutors
-import com.dicoding.tourismapp.core.valueobject.Resource
 
 class TourismRepository private constructor(
     private val remoteDataSource: RemoteDataSource,

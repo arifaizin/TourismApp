@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.dicoding.tourismapp.core.data.source.remote.network.ApiResponse
 import com.dicoding.tourismapp.core.data.source.remote.response.TourismResponse
 import com.dicoding.tourismapp.core.utils.JsonHelper
+import org.json.JSONException
 
 class RemoteDataSource private constructor(private val jsonHelper: JsonHelper) {
     companion object {
@@ -24,9 +25,15 @@ class RemoteDataSource private constructor(private val jsonHelper: JsonHelper) {
         //get data from local json
         val handler = Handler()
         handler.postDelayed({
-            val dataArray = jsonHelper.loadData()
-            if (dataArray.isNotEmpty()) {
-                resultData.value = ApiResponse.success(dataArray)
+            try {
+                val dataArray = jsonHelper.loadData()
+                if (dataArray.isNotEmpty()) {
+                    resultData.value = ApiResponse.Success(dataArray)
+                } else {
+                    resultData.value = ApiResponse.Empty
+                }
+            } catch (e: JSONException){
+                resultData.value = ApiResponse.Error(e.toString())
             }
         }, 2000)
 
