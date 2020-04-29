@@ -4,7 +4,7 @@ import android.os.Handler
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.dicoding.tourismapp.core.data.source.remote.network.ApiResponse
-import com.dicoding.tourismapp.core.data.source.remote.response.DataItem
+import com.dicoding.tourismapp.core.data.source.remote.response.TourismResponse
 import com.dicoding.tourismapp.core.utils.JsonHelper
 
 class RemoteDataSource private constructor(private val jsonHelper: JsonHelper) {
@@ -18,8 +18,8 @@ class RemoteDataSource private constructor(private val jsonHelper: JsonHelper) {
             }
     }
 
-    fun getAllTourism(): LiveData<ApiResponse<List<DataItem>>> {
-        val resultData = MutableLiveData<ApiResponse<List<DataItem>>>()
+    fun getAllTourism(): LiveData<ApiResponse<List<TourismResponse>>> {
+        val resultData = MutableLiveData<ApiResponse<List<TourismResponse>>>()
 
         //get data from local json
         val handler = Handler()

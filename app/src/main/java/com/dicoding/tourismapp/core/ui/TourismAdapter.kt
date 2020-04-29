@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dicoding.tourismapp.R
 import com.dicoding.tourismapp.core.data.source.local.entity.TourismEntity
-import kotlinx.android.synthetic.main.item_list_data.view.*
+import kotlinx.android.synthetic.main.item_list_tourism.view.*
 import java.util.ArrayList
 
 class TourismAdapter : RecyclerView.Adapter<TourismAdapter.ListViewHolder>() {
@@ -22,12 +22,10 @@ class TourismAdapter : RecyclerView.Adapter<TourismAdapter.ListViewHolder>() {
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
-        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_list_data, parent, false)
-        return ListViewHolder(view)
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        ListViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_list_tourism, parent, false))
 
-    override fun getItemCount(): Int = listData.size
+    override fun getItemCount() = listData.size
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val data = listData[position]
@@ -38,10 +36,9 @@ class TourismAdapter : RecyclerView.Adapter<TourismAdapter.ListViewHolder>() {
         fun bind(data: TourismEntity) {
             with(itemView) {
                 Glide.with(itemView.context)
-                    .load(data.image1)
+                    .load(data.image)
                     .into(media_image)
-
-                title_text.text = data.caption
+                title_text.text = data.name
                 subtitle_text.text = data.address
             }
         }

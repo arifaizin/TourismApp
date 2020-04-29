@@ -26,23 +26,25 @@ class DetailHomeActivity : AppCompatActivity() {
         val factory = DetailTourismViewModelFactory.getInstance(this)
         detailMovieViewModel = ViewModelProvider(this, factory)[DetailTourismViewModel::class.java]
 
-        val detailTourism = intent.getParcelableExtra(EXTRA_DATA) as TourismEntity
+        val detailTourism = intent.getParcelableExtra<TourismEntity>(EXTRA_DATA)
         showDetailTourism(detailTourism)
     }
 
-    private fun showDetailTourism(detailTourism: TourismEntity) {
-        supportActionBar?.title = detailTourism.caption
-        detail_description.text = detailTourism.description
-        Glide.with(this)
-            .load(detailTourism.image1)
-            .into(detail_image)
+    private fun showDetailTourism(detailTourism: TourismEntity?) {
+        detailTourism?.let {
+            supportActionBar?.title = detailTourism.name
+            detail_description.text = detailTourism.description
+            Glide.with(this@DetailHomeActivity)
+                .load(detailTourism.image)
+                .into(detail_image)
 
-        var statusFavorite = detailTourism.isFavorite
-        setStatusFavorite(statusFavorite)
-        fab.setOnClickListener {
-            statusFavorite = !statusFavorite
-            detailMovieViewModel.setFavoriteMovie(detailTourism, statusFavorite)
+            var statusFavorite = detailTourism.isFavorite
             setStatusFavorite(statusFavorite)
+            fab.setOnClickListener {
+                statusFavorite = !statusFavorite
+                detailMovieViewModel.setFavoriteMovie(detailTourism, statusFavorite)
+                setStatusFavorite(statusFavorite)
+            }
         }
     }
 

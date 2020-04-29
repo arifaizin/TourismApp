@@ -21,12 +21,11 @@ class FavoriteViewModelFactory private constructor(private val tourismRepository
     }
 
     @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return when {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T =
+        when {
             modelClass.isAssignableFrom(FavoriteViewModel::class.java) -> {
                 FavoriteViewModel(tourismRepository) as T
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }
-    }
 }

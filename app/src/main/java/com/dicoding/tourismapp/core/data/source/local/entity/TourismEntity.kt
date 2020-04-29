@@ -15,32 +15,26 @@ data class TourismEntity(
     @ColumnInfo(name = "tourismId")
     var tourismId: String,
 
-    @ColumnInfo(name = "thumbnail")
-    var thumbnail: String,
-
-    @ColumnInfo(name = "address")
-    var address: String,
-
-    @ColumnInfo(name = "like")
-    var like: String,
-
-    @ColumnInfo(name = "latitude")
-    var latitude: Double,
-
-    @ColumnInfo(name = "rating")
-    var rating: Double,
-
-    @ColumnInfo(name = "caption")
-    var caption: String,
+    @ColumnInfo(name = "name")
+    var name: String,
 
     @ColumnInfo(name = "description")
     var description: String,
 
-    @ColumnInfo(name = "image1")
-    var image1: String,
+    @ColumnInfo(name = "address")
+    var address: String,
+
+    @ColumnInfo(name = "latitude")
+    var latitude: Double,
 
     @ColumnInfo(name = "longitude")
     var longitude: Double,
+
+    @ColumnInfo(name = "like")
+    var like: Int,
+
+    @ColumnInfo(name = "image")
+    var image: String,
 
     @ColumnInfo(name = "isFavorite")
     var isFavorite: Boolean = false

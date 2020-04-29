@@ -5,7 +5,7 @@ import com.dicoding.tourismapp.core.data.source.remote.network.ApiResponse
 import com.dicoding.tourismapp.core.data.source.local.LocalDataSource
 import com.dicoding.tourismapp.core.data.source.local.entity.TourismEntity
 import com.dicoding.tourismapp.core.data.source.remote.RemoteDataSource
-import com.dicoding.tourismapp.core.data.source.remote.response.DataItem
+import com.dicoding.tourismapp.core.data.source.remote.response.TourismResponse
 import com.dicoding.tourismapp.core.utils.AppExecutors
 import com.dicoding.tourismapp.core.valueobject.Resource
 
@@ -29,40 +29,37 @@ class TourismRepository private constructor(
             }
     }
 
-    override fun getAllTourism(): LiveData<Resource<List<TourismEntity>>> {
-        return object : NetworkBoundResource<List<TourismEntity>, List<DataItem>>(appExecutors) {
+    override fun getAllTourism(): LiveData<Resource<List<TourismEntity>>> =
+        object : NetworkBoundResource<List<TourismEntity>, List<TourismResponse>>(appExecutors) {
             public override fun loadFromDB(): LiveData<List<TourismEntity>> =
                 localDataSource.getAllTourism()
 
             override fun shouldFetch(data: List<TourismEntity>?): Boolean =
                 data == null || data.isEmpty()
 
-            public override fun createCall(): LiveData<ApiResponse<List<DataItem>>> =
+            public override fun createCall(): LiveData<ApiResponse<List<TourismResponse>>> =
                 remoteDataSource.getAllTourism()
 
-            public override fun saveCallResult(data: List<DataItem>) {
+            public override fun saveCallResult(data: List<TourismResponse>) {
                 val tourismList = ArrayList<TourismEntity>()
                 for (response in data) {
                     val tourism = TourismEntity(
-                            tourismId = response.caption,
-                            thumbnail = response.thumbnail,
-                            address = response.address,
-                            like = response.like,
-                            latitude = response.latitude,
-                            rating = response.rating,
-                            caption = response.caption,
-                            description = response.description,
-                            image1 = response.image1,
-                            longitude = response.longitude,
-                            isFavorite = false
-                        )
+                        tourismId = response.id,
+                        description = response.description,
+                        name = response.name,
+                        address = response.address,
+                        latitude = response.latitude,
+                        longitude = response.longitude,
+                        like = response.like,
+                        image = response.image,
+                        isFavorite = false
+                    )
                     tourismList.add(tourism)
                 }
 
                 localDataSource.insertTourism(tourismList)
             }
         }.asLiveData()
-    }
 
     override fun getFavoriteTourism(): LiveData<List<TourismEntity>> =
         localDataSource.getFavoriteTourism()

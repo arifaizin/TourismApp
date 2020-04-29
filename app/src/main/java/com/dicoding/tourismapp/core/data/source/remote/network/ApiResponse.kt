@@ -7,15 +7,12 @@ class ApiResponse<T>(
     val body: T, @param:Nullable @field:Nullable
     val message: String?
 ) {
+
     companion object {
-
-        fun <T> success(@Nullable body: T): ApiResponse<T> {
-            return ApiResponse(
-                StatusResponse.SUCCESS,
-                body,
-                null
-            )
-        }
+        fun <T> success(@Nullable body: T): ApiResponse<T> = ApiResponse(
+            StatusResponse.SUCCESS,
+            body,
+            null
+        )
     }
-
 }

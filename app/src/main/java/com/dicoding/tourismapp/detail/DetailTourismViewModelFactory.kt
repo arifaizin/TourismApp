@@ -20,12 +20,11 @@ class DetailTourismViewModelFactory private constructor(private val tourismRepos
     }
 
     @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return when {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T =
+        when {
             modelClass.isAssignableFrom(DetailTourismViewModel::class.java) -> {
                 DetailTourismViewModel(tourismRepository) as T
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }
-    }
 }
