@@ -44,12 +44,8 @@ class HomeFragment : Fragment() {
                     when (tourism) {
                         is Resource.Loading -> progress_bar.visibility = View.VISIBLE
                         is Resource.Success -> {
-                            if (tourism.data != null) {
-                                progress_bar.visibility = View.GONE
-                                tourismAdapter.setData(tourism.data)
-                            } else {
-                                view_error.visibility = View.VISIBLE
-                            }
+                            progress_bar.visibility = View.GONE
+                            tourismAdapter.setData(tourism.data)
                         }
                         is Resource.Error -> {
                             progress_bar.visibility = View.GONE
