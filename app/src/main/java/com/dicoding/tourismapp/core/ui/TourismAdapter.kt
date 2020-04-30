@@ -37,9 +37,9 @@ class TourismAdapter : RecyclerView.Adapter<TourismAdapter.ListViewHolder>() {
             with(itemView) {
                 Glide.with(itemView.context)
                     .load(data.image)
-                    .into(media_image)
-                title_text.text = data.name
-                subtitle_text.text = data.address
+                    .into(iv_item_image)
+                tv_item_title.text = data.name
+                tv_item_subtitle.text = data.address
             }
         }
 

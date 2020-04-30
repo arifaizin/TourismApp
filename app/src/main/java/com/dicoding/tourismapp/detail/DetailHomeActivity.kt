@@ -33,10 +33,10 @@ class DetailHomeActivity : AppCompatActivity() {
     private fun showDetailTourism(detailTourism: TourismEntity?) {
         detailTourism?.let {
             supportActionBar?.title = detailTourism.name
-            detail_description.text = detailTourism.description
+            tv_detail_description.text = detailTourism.description
             Glide.with(this@DetailHomeActivity)
                 .load(detailTourism.image)
-                .into(detail_image)
+                .into(text_detail_image)
 
             var statusFavorite = detailTourism.isFavorite
             setStatusFavorite(statusFavorite)

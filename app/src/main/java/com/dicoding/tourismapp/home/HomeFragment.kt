@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +14,7 @@ import com.dicoding.tourismapp.core.ui.TourismAdapter
 import com.dicoding.tourismapp.core.data.Resource
 import com.dicoding.tourismapp.detail.DetailHomeActivity
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.view_error.*
 
 class HomeFragment : Fragment() {
 
@@ -44,12 +44,17 @@ class HomeFragment : Fragment() {
                     when (tourism) {
                         is Resource.Loading -> progress_bar.visibility = View.VISIBLE
                         is Resource.Success -> {
-                            progress_bar.visibility = View.GONE
-                            tourismAdapter.setData(tourism.data)
+                            if (tourism.data != null) {
+                                progress_bar.visibility = View.GONE
+                                tourismAdapter.setData(tourism.data)
+                            } else {
+                                view_error.visibility = View.VISIBLE
+                            }
                         }
                         is Resource.Error -> {
                             progress_bar.visibility = View.GONE
-                            Toast.makeText(context, "Terjadi kesalahan" + tourism.message, Toast.LENGTH_SHORT).show()
+                            view_error.visibility = View.VISIBLE
+                            tv_error.text = tourism.message ?: getString(R.string.something_wrong)
                         }
                     }
                 }

@@ -12,7 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.tourismapp.R
 import com.dicoding.tourismapp.core.ui.TourismAdapter
 import com.dicoding.tourismapp.detail.DetailHomeActivity
-import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_favorite.*
+import kotlinx.android.synthetic.main.fragment_home.rv_tourism
 
 class FavoriteFragment : Fragment() {
 
@@ -38,8 +39,10 @@ class FavoriteFragment : Fragment() {
             }
 
             viewModel.getFavoriteTourism().observe(this, Observer { dataTourism ->
-                if (dataTourism != null) {
+                if (dataTourism.isNotEmpty()) {
                     tourismAdapter.setData(dataTourism)
+                } else {
+                    view_empty.visibility = View.VISIBLE
                 }
             })
 
