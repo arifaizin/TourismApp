@@ -1,4 +1,4 @@
-package com.dicoding.tourismapp.core.injection
+package com.dicoding.tourismapp.core.di
 
 import android.content.Context
 

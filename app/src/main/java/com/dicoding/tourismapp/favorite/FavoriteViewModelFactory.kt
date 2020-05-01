@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
 import com.dicoding.tourismapp.core.data.TourismRepository
-import com.dicoding.tourismapp.core.injection.Injection
+import com.dicoding.tourismapp.core.di.Injection
 
 class FavoriteViewModelFactory private constructor(private val tourismRepository: TourismRepository) :
     ViewModelProvider.NewInstanceFactory() {
