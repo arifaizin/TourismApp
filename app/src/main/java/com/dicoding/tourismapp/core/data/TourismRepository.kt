@@ -13,7 +13,7 @@ class TourismRepository private constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
     private val appExecutors: AppExecutors
-) : ITourismRepository {
+) {
 
     companion object {
         @Volatile
@@ -29,7 +29,7 @@ class TourismRepository private constructor(
             }
     }
 
-    override fun getAllTourism(): LiveData<Resource<List<TourismEntity>>> =
+    fun getAllTourism(): LiveData<Resource<List<TourismEntity>>> =
         object : NetworkBoundResource<List<TourismEntity>, List<TourismResponse>>(appExecutors) {
             public override fun loadFromDB(): LiveData<List<TourismEntity>> =
                 localDataSource.getAllTourism()
@@ -46,10 +46,10 @@ class TourismRepository private constructor(
             }
         }.asLiveData()
 
-    override fun getFavoriteTourism(): LiveData<List<TourismEntity>> =
+    fun getFavoriteTourism(): LiveData<List<TourismEntity>> =
         localDataSource.getFavoriteTourism()
 
-    override fun setFavoriteTourism(tourism: TourismEntity, state: Boolean) =
+    fun setFavoriteTourism(tourism: TourismEntity, state: Boolean) =
         appExecutors.diskIO().execute { localDataSource.setFavoriteTourism(tourism, state) }
 }
 
