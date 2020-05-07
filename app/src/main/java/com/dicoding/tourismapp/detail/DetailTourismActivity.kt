@@ -7,10 +7,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.dicoding.tourismapp.R
 import com.dicoding.tourismapp.core.data.source.local.entity.TourismEntity
-import kotlinx.android.synthetic.main.activity_detail_home.*
-import kotlinx.android.synthetic.main.content_detail_home.*
+import kotlinx.android.synthetic.main.activity_detail_tourism.*
+import kotlinx.android.synthetic.main.content_detail_tourism.*
 
-class DetailHomeActivity : AppCompatActivity() {
+class DetailTourismActivity : AppCompatActivity() {
 
     private lateinit var detailMovieViewModel: DetailTourismViewModel
 
@@ -20,7 +20,7 @@ class DetailHomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail_home)
+        setContentView(R.layout.activity_detail_tourism)
         setSupportActionBar(toolbar)
 
         val factory = DetailTourismViewModelFactory.getInstance(this)
@@ -34,7 +34,7 @@ class DetailHomeActivity : AppCompatActivity() {
         detailTourism?.let {
             supportActionBar?.title = detailTourism.name
             tv_detail_description.text = detailTourism.description
-            Glide.with(this@DetailHomeActivity)
+            Glide.with(this@DetailTourismActivity)
                 .load(detailTourism.image)
                 .into(text_detail_image)
 

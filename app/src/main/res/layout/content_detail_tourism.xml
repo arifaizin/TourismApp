@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".detail.DetailHomeActivity"
+    tools:context=".detail.DetailTourismActivity"
     android:layout_marginTop="16dp"
-    tools:showIn="@layout/activity_detail_home">
+    tools:showIn="@layout/activity_detail_tourism">
 
     <TextView
         android:id="@+id/tv_detail_description"

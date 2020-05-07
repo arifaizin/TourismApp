@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.tourismapp.R
 import com.dicoding.tourismapp.core.ui.TourismAdapter
-import com.dicoding.tourismapp.detail.DetailHomeActivity
+import com.dicoding.tourismapp.detail.DetailTourismActivity
 import kotlinx.android.synthetic.main.fragment_favorite.*
 import kotlinx.android.synthetic.main.fragment_home.rv_tourism
 
@@ -33,8 +33,8 @@ class FavoriteFragment : Fragment() {
 
             val tourismAdapter = TourismAdapter()
             tourismAdapter.onItemClick = { selectedData ->
-                val intent = Intent(activity, DetailHomeActivity::class.java)
-                intent.putExtra(DetailHomeActivity.EXTRA_DATA, selectedData)
+                val intent = Intent(activity, DetailTourismActivity::class.java)
+                intent.putExtra(DetailTourismActivity.EXTRA_DATA, selectedData)
                 startActivity(intent)
             }
 

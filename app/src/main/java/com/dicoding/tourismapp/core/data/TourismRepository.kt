@@ -7,12 +7,13 @@ import com.dicoding.tourismapp.core.data.source.local.entity.TourismEntity
 import com.dicoding.tourismapp.core.data.source.remote.RemoteDataSource
 import com.dicoding.tourismapp.core.data.source.remote.response.TourismResponse
 import com.dicoding.tourismapp.core.utils.AppExecutors
+import com.dicoding.tourismapp.core.utils.DataMapper
 
 class TourismRepository private constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
     private val appExecutors: AppExecutors
-) : TourismDataSource {
+) : ITourismRepository {
 
     companion object {
         @Volatile
@@ -40,22 +41,7 @@ class TourismRepository private constructor(
                 remoteDataSource.getAllTourism()
 
             public override fun saveCallResult(data: List<TourismResponse>) {
-                val tourismList = ArrayList<TourismEntity>()
-                for (response in data) {
-                    val tourism = TourismEntity(
-                        tourismId = response.id,
-                        description = response.description,
-                        name = response.name,
-                        address = response.address,
-                        latitude = response.latitude,
-                        longitude = response.longitude,
-                        like = response.like,
-                        image = response.image,
-                        isFavorite = false
-                    )
-                    tourismList.add(tourism)
-                }
-
+                val tourismList = DataMapper.mapResponsesToEntities(data)
                 localDataSource.insertTourism(tourismList)
             }
         }.asLiveData()

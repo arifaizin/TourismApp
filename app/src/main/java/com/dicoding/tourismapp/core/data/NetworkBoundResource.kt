@@ -66,7 +66,7 @@ abstract class NetworkBoundResource<ResultType, RequestType>(private val mExecut
                 is ApiResponse.Error -> {
                     onFetchFailed()
                     result.addSource(dbSource) { newData ->
-                        result.value = Resource.Error(newData, response.errorMessage)
+                        result.value = Resource.Error(response.errorMessage, newData)
                     }
                 }
             }
