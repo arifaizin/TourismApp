@@ -31,8 +31,9 @@ class TourismRepository private constructor(
 
     fun getAllTourism(): LiveData<Resource<List<TourismEntity>>> =
         object : NetworkBoundResource<List<TourismEntity>, List<TourismResponse>>(appExecutors) {
-            public override fun loadFromDB(): LiveData<List<TourismEntity>> =
-                localDataSource.getAllTourism()
+            public override fun loadFromDB(): LiveData<List<TourismEntity>> {
+                return localDataSource.getAllTourism()
+            }
 
             override fun shouldFetch(data: List<TourismEntity>?): Boolean =
                 data == null || data.isEmpty()
@@ -46,10 +47,12 @@ class TourismRepository private constructor(
             }
         }.asLiveData()
 
-    fun getFavoriteTourism(): LiveData<List<TourismEntity>> =
-        localDataSource.getFavoriteTourism()
+    fun getFavoriteTourism(): LiveData<List<TourismEntity>> {
+        return localDataSource.getFavoriteTourism()
+    }
 
-    fun setFavoriteTourism(tourism: TourismEntity, state: Boolean) =
+    fun setFavoriteTourism(tourism: TourismEntity, state: Boolean) {
         appExecutors.diskIO().execute { localDataSource.setFavoriteTourism(tourism, state) }
+    }
 }
 
