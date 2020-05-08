@@ -5,8 +5,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.tourismapp.core.data.TourismRepository
 import com.dicoding.tourismapp.core.di.Injection
+import com.dicoding.tourismapp.core.domain.GetFavoriteTourismUseCase
+import com.dicoding.tourismapp.core.domain.SetFavoriteTourismUseCase
 
-class DetailTourismViewModelFactory private constructor(private val tourismRepository: TourismRepository) :
+class DetailTourismViewModelFactory private constructor(private val setFavoriteTourismUseCase: SetFavoriteTourismUseCase) :
     ViewModelProvider.NewInstanceFactory() {
 
     companion object {
@@ -15,7 +17,7 @@ class DetailTourismViewModelFactory private constructor(private val tourismRepos
 
         fun getInstance(context: Context): DetailTourismViewModelFactory =
             instance ?: synchronized(this) {
-                instance ?: DetailTourismViewModelFactory(Injection.provideRepository(context))
+                instance ?: DetailTourismViewModelFactory(Injection.provideSetFavoriteTourismUseCase(context))
             }
     }
 
@@ -23,7 +25,7 @@ class DetailTourismViewModelFactory private constructor(private val tourismRepos
     override fun <T : ViewModel> create(modelClass: Class<T>): T =
         when {
             modelClass.isAssignableFrom(DetailTourismViewModel::class.java) -> {
-                DetailTourismViewModel(tourismRepository) as T
+                DetailTourismViewModel(setFavoriteTourismUseCase) as T
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }

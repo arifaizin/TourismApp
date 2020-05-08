@@ -3,10 +3,10 @@ package com.dicoding.tourismapp.home
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.dicoding.tourismapp.core.data.TourismRepository
 import com.dicoding.tourismapp.core.di.Injection
+import com.dicoding.tourismapp.core.domain.GetAllTourismUseCase
 
-class HomeViewModelFactory private constructor(private val tourismRepository: TourismRepository) :
+class HomeViewModelFactory private constructor(private val getAllTourismUseCase: GetAllTourismUseCase) :
     ViewModelProvider.NewInstanceFactory() {
 
     companion object {
@@ -15,7 +15,7 @@ class HomeViewModelFactory private constructor(private val tourismRepository: To
 
         fun getInstance(context: Context): HomeViewModelFactory =
             instance ?: synchronized(this) {
-                instance ?: HomeViewModelFactory(Injection.provideRepository(context))
+                instance ?: HomeViewModelFactory(Injection.provideGetAllTourismUseCase(context))
             }
     }
 
@@ -23,7 +23,7 @@ class HomeViewModelFactory private constructor(private val tourismRepository: To
     override fun <T : ViewModel> create(modelClass: Class<T>): T =
         when {
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
-                HomeViewModel(tourismRepository) as T
+                HomeViewModel(getAllTourismUseCase) as T
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }
