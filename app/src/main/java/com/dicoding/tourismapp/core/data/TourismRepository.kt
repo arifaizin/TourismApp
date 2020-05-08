@@ -58,7 +58,6 @@ class TourismRepository private constructor(
         }
     }
 
-
     override fun setFavoriteTourism(tourism: Tourism, state: Boolean) {
         val tourismEntitiy = DataMapper.mapDomainToEntity(tourism)
         appExecutors.diskIO().execute { localDataSource.setFavoriteTourism(tourismEntitiy, state) }
