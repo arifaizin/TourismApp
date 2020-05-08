@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.content_detail_tourism.*
 
 class DetailTourismActivity : AppCompatActivity() {
 
-    private lateinit var detailMovieViewModel: DetailTourismViewModel
+    private lateinit var detailTourismViewModel: DetailTourismViewModel
 
     companion object {
         const val EXTRA_DATA = "extra_data"
@@ -24,7 +24,7 @@ class DetailTourismActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         val factory = DetailTourismViewModelFactory.getInstance(this)
-        detailMovieViewModel = ViewModelProvider(this, factory)[DetailTourismViewModel::class.java]
+        detailTourismViewModel = ViewModelProvider(this, factory)[DetailTourismViewModel::class.java]
 
         val detailTourism = intent.getParcelableExtra<TourismEntity>(EXTRA_DATA)
         showDetailTourism(detailTourism)
@@ -42,7 +42,7 @@ class DetailTourismActivity : AppCompatActivity() {
             setStatusFavorite(statusFavorite)
             fab.setOnClickListener {
                 statusFavorite = !statusFavorite
-                detailMovieViewModel.setFavoriteMovie(detailTourism, statusFavorite)
+                detailTourismViewModel.setFavoriteTourism(detailTourism, statusFavorite)
                 setStatusFavorite(statusFavorite)
             }
         }
