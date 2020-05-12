@@ -3,8 +3,6 @@ package com.dicoding.tourismapp.favorite
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-
-import com.dicoding.tourismapp.core.data.TourismRepository
 import com.dicoding.tourismapp.core.di.Injection
 import com.dicoding.tourismapp.core.domain.GetFavoriteTourismUseCase
 
