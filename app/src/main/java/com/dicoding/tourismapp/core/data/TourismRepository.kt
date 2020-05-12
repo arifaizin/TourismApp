@@ -5,7 +5,6 @@ import androidx.lifecycle.Transformations
 import com.dicoding.tourismapp.core.domain.ITourismRepository
 import com.dicoding.tourismapp.core.data.source.remote.network.ApiResponse
 import com.dicoding.tourismapp.core.data.source.local.LocalDataSource
-import com.dicoding.tourismapp.core.data.source.local.entity.TourismEntity
 import com.dicoding.tourismapp.core.data.source.remote.RemoteDataSource
 import com.dicoding.tourismapp.core.data.source.remote.response.TourismResponse
 import com.dicoding.tourismapp.core.domain.Tourism
@@ -59,8 +58,8 @@ class TourismRepository private constructor(
     }
 
     override fun setFavoriteTourism(tourism: Tourism, state: Boolean) {
-        val tourismEntitiy = DataMapper.mapDomainToEntity(tourism)
-        appExecutors.diskIO().execute { localDataSource.setFavoriteTourism(tourismEntitiy, state) }
+        val tourismEntity = DataMapper.mapDomainToEntity(tourism)
+        appExecutors.diskIO().execute { localDataSource.setFavoriteTourism(tourismEntity, state) }
     }
 }
 
