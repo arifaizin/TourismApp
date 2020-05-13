@@ -14,7 +14,7 @@ interface TourismDao {
     fun getFavoriteTourism(): Flow<List<TourismEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertTourism(tourism: List<TourismEntity>)
+    suspend fun insertTourism(tourism: List<TourismEntity>)
 
     @Update
     fun updateFavoriteTourism(tourism: TourismEntity)

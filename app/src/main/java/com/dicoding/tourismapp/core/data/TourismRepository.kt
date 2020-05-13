@@ -39,15 +39,15 @@ class TourismRepository private constructor(
                 }
             }
 
-            override fun shouldFetch(data: List<Tourism>): Boolean =
+            override fun shouldFetch(data: List<Tourism>?): Boolean =
                 data == null || data.isEmpty()
 
-            override suspend fun fetchFromNetwork(): Flow<ApiResponse<List<TourismResponse>>> =
+            override suspend fun createCall(): Flow<ApiResponse<List<TourismResponse>>> =
                 remoteDataSource.getAllTourism()
 
-            public override fun saveCallResult(data: List<TourismResponse>) {
+            override suspend fun saveCallResult(data: List<TourismResponse>) {
                 val tourismList = DataMapper.mapResponsesToEntities(data)
-                appExecutors.diskIO().execute { localDataSource.insertTourism(tourismList) }
+                localDataSource.insertTourism(tourismList)
             }
         }.asFlow()
 
@@ -59,7 +59,7 @@ class TourismRepository private constructor(
 
     override fun setFavoriteTourism(tourism: Tourism, state: Boolean) {
         val tourismEntity = DataMapper.mapDomainToEntity(tourism)
-        appExecutors.diskIO().execute { localDataSource.setFavoriteTourism(tourismEntity, state) }
+        appExecutors.diskIO().execute { localDataSource.setFavoriteTourism(tourismEntity, state)}
     }
 }
 

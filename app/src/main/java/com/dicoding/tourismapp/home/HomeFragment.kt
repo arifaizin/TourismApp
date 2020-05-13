@@ -2,16 +2,16 @@ package com.dicoding.tourismapp.home
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.tourismapp.R
-import com.dicoding.tourismapp.core.ui.TourismAdapter
 import com.dicoding.tourismapp.core.data.Resource
+import com.dicoding.tourismapp.core.ui.TourismAdapter
 import com.dicoding.tourismapp.detail.DetailTourismActivity
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.view_error.*
@@ -38,9 +38,7 @@ class HomeFragment : Fragment() {
                 intent.putExtra(DetailTourismActivity.EXTRA_DATA, selectedData)
                 startActivity(intent)
             }
-
-            viewModel.getTourism()
-            viewModel.getTourism().observe(this, Observer { tourism ->
+            viewModel.getTourism().observe(viewLifecycleOwner, Observer { tourism ->
                 if (tourism != null) {
                     when (tourism) {
                         is Resource.Loading -> progress_bar.visibility = View.VISIBLE

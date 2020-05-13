@@ -19,7 +19,7 @@ class LocalDataSource private constructor(private val tourismDao: TourismDao) {
 
     fun getFavoriteTourism(): Flow<List<TourismEntity>> = tourismDao.getFavoriteTourism()
 
-    fun insertTourism(tourismList: List<TourismEntity>) = tourismDao.insertTourism(tourismList)
+    suspend fun insertTourism(tourismList: List<TourismEntity>) = tourismDao.insertTourism(tourismList)
 
     fun setFavoriteTourism(tourism: TourismEntity, newState: Boolean) {
         tourism.isFavorite = newState

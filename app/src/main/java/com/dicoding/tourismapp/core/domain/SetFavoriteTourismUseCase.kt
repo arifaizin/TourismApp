@@ -1,8 +1,5 @@
 package com.dicoding.tourismapp.core.domain
 
-import androidx.lifecycle.LiveData
-import com.dicoding.tourismapp.core.data.Resource
-
 class SetFavoriteTourismUseCase(private val tourismRepository: ITourismRepository) :
     UseCase<Any, SetFavoriteTourismUseCase.Params>() {
 
