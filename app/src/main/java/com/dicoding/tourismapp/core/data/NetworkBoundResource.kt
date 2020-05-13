@@ -14,7 +14,7 @@ abstract class NetworkBoundResource<ResultType, RequestType>(private val mExecut
         if (shouldFetch(dbSource.first())) {
             fetchFromNetwork(dbSource)
         } else {
-            emitAll(loadFromDB().map { Resource.Success(it) })
+            emitAll(dbSource.map { Resource.Success(it) })
         }
 
     }

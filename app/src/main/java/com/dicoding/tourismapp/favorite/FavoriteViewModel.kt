@@ -12,12 +12,15 @@ class FavoriteViewModel(private val getFavoriteTourismUseCase: GetFavoriteTouris
 
     val favoriteTourism = MutableLiveData<List<Tourism>>()
 
-    fun getFavoriteTourism() {
-        getFavoriteTourismUseCase(viewModelScope, UseCase.None()) {
-            val tourism = it.asLiveData()
-            favoriteTourism.value = tourism.value
-        }
-    }
+//    fun getFavoriteTourism() {
+//        getFavoriteTourismUseCase(viewModelScope, UseCase.None()) {
+//            val tourism = it.asLiveData()
+//            favoriteTourism.value = tourism.value
+//        }
+//
+//    }
+
+    fun getFavoriteTourism() = getFavoriteTourismUseCase.run(UseCase.None()).asLiveData()
 
 }
 

@@ -39,7 +39,7 @@ class FavoriteFragment : Fragment() {
             }
 
             viewModel.getFavoriteTourism()
-            viewModel.favoriteTourism.observe(this, Observer { dataTourism ->
+            viewModel.getFavoriteTourism().observe(this, Observer { dataTourism ->
                 tourismAdapter.setData(dataTourism)
                 view_empty.visibility = if (dataTourism.isNotEmpty()) View.GONE else View.VISIBLE
             })

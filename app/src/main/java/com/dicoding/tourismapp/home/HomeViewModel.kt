@@ -11,10 +11,13 @@ class HomeViewModel(private val getAllTourismUseCase: GetAllTourismUseCase) : Vi
 
     var tourism: MutableLiveData<Resource<List<Tourism>>> = MutableLiveData()
 
-    fun getTourism() {
-        getAllTourismUseCase(viewModelScope, UseCase.None()) {
-            tourism.value = it.asLiveData().value
-        }
-    }
+//    fun getTourism() {
+//        getAllTourismUseCase(viewModelScope, UseCase.None()) {
+//            tourism.value = it.asLiveData().value
+//        }
+//    }
+
+    fun getTourism() = getAllTourismUseCase.run(UseCase.None()).asLiveData()
+
 }
 

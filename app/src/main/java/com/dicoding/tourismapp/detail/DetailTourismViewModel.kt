@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 
 class DetailTourismViewModel(private val setFavoriteTourismUseCase: SetFavoriteTourismUseCase) : ViewModel() {
     fun setFavoriteTourism(tourism: Tourism, newStatus:Boolean) =
-        setFavoriteTourismUseCase.invoke(viewModelScope, SetFavoriteTourismUseCase.Params(tourism, newStatus))
-
+//        setFavoriteTourismUseCase.invoke(viewModelScope, SetFavoriteTourismUseCase.Params(tourism, newStatus))
+        setFavoriteTourismUseCase.run(SetFavoriteTourismUseCase.Params(tourism, newStatus))
 }
 

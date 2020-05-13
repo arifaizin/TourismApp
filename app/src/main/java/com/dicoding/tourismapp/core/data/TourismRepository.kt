@@ -57,7 +57,7 @@ class TourismRepository private constructor(
         }
     }
 
-    override suspend fun setFavoriteTourism(tourism: Tourism, state: Boolean) {
+    override fun setFavoriteTourism(tourism: Tourism, state: Boolean) {
         val tourismEntity = DataMapper.mapDomainToEntity(tourism)
         localDataSource.setFavoriteTourism(tourismEntity, state)
     }

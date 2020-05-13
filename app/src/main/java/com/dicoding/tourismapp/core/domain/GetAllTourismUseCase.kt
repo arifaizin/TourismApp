@@ -6,6 +6,6 @@ import kotlinx.coroutines.flow.Flow
 class GetAllTourismUseCase(private val tourismRepository: ITourismRepository) :
     UseCase<Flow<Resource<List<Tourism>>>, UseCase.None>() {
 
-    override suspend fun run(params: None) = tourismRepository.getAllTourism()
+    override fun run(params: None) = tourismRepository.getAllTourism()
 
 }
