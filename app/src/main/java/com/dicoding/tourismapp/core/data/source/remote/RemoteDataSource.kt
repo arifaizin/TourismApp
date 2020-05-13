@@ -25,7 +25,7 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
         //get data from remote api
         return flow {
             try {
-                val response = apiService.getList().await()
+                val response = apiService.getList()
                 val dataArray = response.places
                 if (dataArray.isNotEmpty()){
                     emit(ApiResponse.Success(response.places))

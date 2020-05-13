@@ -8,13 +8,24 @@ import kotlinx.coroutines.flow.*
 abstract class NetworkBoundResource<ResultType, RequestType>(private val mExecutors: AppExecutors) {
 
     //    private val result = MediatorLiveData<Resource<ResultType>>()
-    private val result: Flow<Resource<ResultType>> = flow {
+    private var result: Flow<Resource<ResultType>> = flow {
         emit(Resource.Loading())
-        val dbSource = loadFromDB()
-        if (shouldFetch(dbSource.first())) {
-            fetchFromNetwork(dbSource)
+        val dbSource = loadFromDB().first()
+        if (shouldFetch(dbSource)) {
+//            fetchFromNetwork()
+            emit(Resource.Loading(dbSource))
+            when (val apiResponse = fetchFromNetwork().first()) {
+                is ApiResponse.Success -> {
+                    saveCallResult(apiResponse.data)
+                    emitAll(loadFromDB().map { Resource.Success(it) })
+                }
+                is ApiResponse.Error -> {
+                    onFetchFailed()
+                    emitAll(loadFromDB().map { Resource.Error(apiResponse.errorMessage, it) })
+                }
+            }
         } else {
-            emitAll(dbSource.map { Resource.Success(it) })
+            emitAll(loadFromDB().map { Resource.Success(it) })
         }
 
     }
@@ -43,29 +54,31 @@ abstract class NetworkBoundResource<ResultType, RequestType>(private val mExecut
 
     protected abstract fun shouldFetch(data: ResultType): Boolean
 
-    protected abstract suspend fun createCall(): Flow<ApiResponse<RequestType>>
+//    protected abstract suspend fun createCall(): Flow<ApiResponse<RequestType>>
 
     protected abstract fun saveCallResult(data: RequestType)
 
-    private suspend fun fetchFromNetwork(dbSource: Flow<ResultType>) {
+    protected abstract suspend fun fetchFromNetwork(): Flow<ApiResponse<RequestType>>
 
-        val apiResponse = createCall().first()
-        flow {
-            emit(Resource.Loading())
-            when (apiResponse) {
-                is ApiResponse.Success -> {
-                    saveCallResult(apiResponse.data)
-                    emitAll(loadFromDB().map { Resource.Success(it) })
-                }
-                is ApiResponse.Empty -> {
-                    emitAll(loadFromDB().map { Resource.Success(it) })
-                }
-                is ApiResponse.Error -> {
-                    onFetchFailed()
-                    emitAll(dbSource.map { Resource.Error(apiResponse.errorMessage, it) })
-                }
-            }
-        }
+//    private suspend fun fetchFromNetwork() {
+//
+//        val apiResponse = createCall().first()
+//        result = flow {
+//            emit(Resource.Loading())
+//            when (apiResponse) {
+//                is ApiResponse.Success -> {
+//                    saveCallResult(apiResponse.data)
+//                    emitAll(loadFromDB().map { Resource.Success(it) })
+//                }
+//                is ApiResponse.Empty -> {
+//                    emitAll(loadFromDB().map { Resource.Success(it) })
+//                }
+//                is ApiResponse.Error -> {
+//                    onFetchFailed()
+//                    emitAll(loadFromDB().map { Resource.Error(apiResponse.errorMessage, it) })
+//                }
+//            }
+//        }
 
 //        result.addSource(dbSource) { newData ->
 //            result.value = Resource.Loading(newData)
@@ -96,7 +109,7 @@ abstract class NetworkBoundResource<ResultType, RequestType>(private val mExecut
 //                }
 //            }
 //        }
-    }
+//    }
 
     fun asFlow(): Flow<Resource<ResultType>> = result
 }
