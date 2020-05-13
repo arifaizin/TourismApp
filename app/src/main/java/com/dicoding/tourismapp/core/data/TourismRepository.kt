@@ -33,7 +33,7 @@ class TourismRepository private constructor(
 
     override fun getAllTourism(): LiveData<Resource<List<Tourism>>> =
         object : NetworkBoundResource<List<Tourism>, List<TourismResponse>>(appExecutors) {
-            public override fun loadFromDB(): LiveData<List<Tourism>> {
+            override fun loadFromDB(): LiveData<List<Tourism>> {
                 return Transformations.map(localDataSource.getAllTourism()) { tourismEntities ->
                     tourismEntities.map { DataMapper.mapEntityToDomain(it) }
                 }
@@ -42,10 +42,10 @@ class TourismRepository private constructor(
             override fun shouldFetch(data: List<Tourism>?): Boolean =
                 data == null || data.isEmpty()
 
-            public override fun createCall(): LiveData<ApiResponse<List<TourismResponse>>> =
+            override fun createCall(): LiveData<ApiResponse<List<TourismResponse>>> =
                 remoteDataSource.getAllTourism()
 
-            public override fun saveCallResult(data: List<TourismResponse>) {
+            override fun saveCallResult(data: List<TourismResponse>) {
                 val tourismList = DataMapper.mapResponsesToEntities(data)
                 localDataSource.insertTourism(tourismList)
             }
