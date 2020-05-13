@@ -39,7 +39,7 @@ class HomeFragment : Fragment() {
                 startActivity(intent)
             }
 
-            viewModel.getTourism().observe(this, Observer { tourism ->
+            viewModel.getTourism().observe(viewLifecycleOwner, Observer { tourism ->
                 if (tourism != null) {
                     when (tourism) {
                         is Resource.Loading -> progress_bar.visibility = View.VISIBLE

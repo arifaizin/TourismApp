@@ -31,17 +31,17 @@ class TourismRepository private constructor(
 
     fun getAllTourism(): LiveData<Resource<List<TourismEntity>>> =
         object : NetworkBoundResource<List<TourismEntity>, List<TourismResponse>>(appExecutors) {
-            public override fun loadFromDB(): LiveData<List<TourismEntity>> {
+            override fun loadFromDB(): LiveData<List<TourismEntity>> {
                 return localDataSource.getAllTourism()
             }
 
             override fun shouldFetch(data: List<TourismEntity>?): Boolean =
                 data == null || data.isEmpty()
 
-            public override fun createCall(): LiveData<ApiResponse<List<TourismResponse>>> =
+            override fun createCall(): LiveData<ApiResponse<List<TourismResponse>>> =
                 remoteDataSource.getAllTourism()
 
-            public override fun saveCallResult(data: List<TourismResponse>) {
+            override fun saveCallResult(data: List<TourismResponse>) {
                 val tourismList = DataMapper.mapResponsesToEntities(data)
                 localDataSource.insertTourism(tourismList)
             }
