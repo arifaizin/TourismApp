@@ -33,7 +33,7 @@ class TourismRepository private constructor(
 
     override fun getAllTourism(): Flow<Resource<List<Tourism>>> =
         object : NetworkBoundResource<List<Tourism>, List<TourismResponse>>(appExecutors) {
-            public override fun loadFromDB(): Flow<List<Tourism>> {
+            override fun loadFromDB(): Flow<List<Tourism>> {
                 return localDataSource.getAllTourism().map { tourismEntities ->
                     tourismEntities.map { DataMapper.mapEntityToDomain(it) }
                 }
@@ -53,13 +53,13 @@ class TourismRepository private constructor(
 
     override fun getFavoriteTourism(): Flow<List<Tourism>> {
         return localDataSource.getFavoriteTourism().map { tourismEntities ->
-            tourismEntities.map {(DataMapper.mapEntityToDomain(it))}
+            tourismEntities.map { (DataMapper.mapEntityToDomain(it)) }
         }
     }
 
     override fun setFavoriteTourism(tourism: Tourism, state: Boolean) {
         val tourismEntity = DataMapper.mapDomainToEntity(tourism)
-        appExecutors.diskIO().execute { localDataSource.setFavoriteTourism(tourismEntity, state)}
+        appExecutors.diskIO().execute { localDataSource.setFavoriteTourism(tourismEntity, state) }
     }
 }
 
