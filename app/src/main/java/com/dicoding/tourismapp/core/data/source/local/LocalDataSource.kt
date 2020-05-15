@@ -18,7 +18,7 @@ class LocalDataSource private constructor(private val tourismDao: TourismDao) {
 
     fun getAllTourism(): Flowable<List<TourismEntity>> = tourismDao.getAllTourism()
 
-    fun getFavoriteTourism(): LiveData<List<TourismEntity>> = tourismDao.getFavoriteTourism()
+    fun getFavoriteTourism(): Flowable<List<TourismEntity>> = tourismDao.getFavoriteTourism()
 
     fun insertTourism(tourismList: List<TourismEntity>) = tourismDao.insertTourism(tourismList)
 

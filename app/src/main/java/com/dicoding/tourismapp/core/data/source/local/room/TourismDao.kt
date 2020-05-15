@@ -13,7 +13,7 @@ interface TourismDao {
     fun getAllTourism(): Flowable<List<TourismEntity>>
 
     @Query("SELECT * FROM tourism where isFavorite = 1")
-    fun getFavoriteTourism(): LiveData<List<TourismEntity>>
+    fun getFavoriteTourism(): Flowable<List<TourismEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertTourism(tourism: List<TourismEntity>): Completable

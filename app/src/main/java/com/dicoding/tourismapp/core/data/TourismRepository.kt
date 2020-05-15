@@ -57,8 +57,8 @@ class TourismRepository private constructor(
             }
         }.asFlowable()
 
-    override fun getFavoriteTourism(): LiveData<List<Tourism>> {
-        return Transformations.map(localDataSource.getFavoriteTourism()) { tourismEntities ->
+    override fun getFavoriteTourism(): Flowable<List<Tourism>> {
+        return localDataSource.getFavoriteTourism().map { tourismEntities ->
             tourismEntities.map { DataMapper.mapEntityToDomain(it) }
         }
     }
