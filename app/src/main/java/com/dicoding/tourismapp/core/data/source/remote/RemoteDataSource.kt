@@ -1,5 +1,6 @@
 package com.dicoding.tourismapp.core.data.source.remote
 
+import android.annotation.SuppressLint
 import com.dicoding.tourismapp.core.data.source.remote.network.ApiResponse
 import com.dicoding.tourismapp.core.data.source.remote.network.ApiService
 import com.dicoding.tourismapp.core.data.source.remote.response.TourismResponse
@@ -20,6 +21,7 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
             }
     }
 
+    @SuppressLint("CheckResult")
     fun getAllTourism(): Flowable<ApiResponse<List<TourismResponse>>> {
         val resultData = PublishSubject.create<ApiResponse<List<TourismResponse>>>()
 
@@ -29,6 +31,7 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
         client
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
+            .take(1)
             .subscribe ({ response ->
                 val dataArray = response.places
                 resultData.onNext(if (dataArray.isNotEmpty()) ApiResponse.Success(dataArray) else ApiResponse.Empty)

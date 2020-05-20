@@ -1,6 +1,5 @@
 package com.dicoding.tourismapp.core.data.source.local.room
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.dicoding.tourismapp.core.data.source.local.entity.TourismEntity
 import io.reactivex.Completable
