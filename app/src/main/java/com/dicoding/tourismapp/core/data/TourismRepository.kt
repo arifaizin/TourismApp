@@ -32,7 +32,7 @@ class TourismRepository private constructor(
     }
 
     override fun getAllTourism(): Flow<Resource<List<Tourism>>> =
-        object : NetworkBoundResource<List<Tourism>, List<TourismResponse>>(appExecutors) {
+        object : NetworkBoundResource<List<Tourism>, List<TourismResponse>>() {
             override fun loadFromDB(): Flow<List<Tourism>> {
                 return localDataSource.getAllTourism().map { tourismEntities ->
                     tourismEntities.map { DataMapper.mapEntityToDomain(it) }

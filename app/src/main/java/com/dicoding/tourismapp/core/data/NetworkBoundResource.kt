@@ -1,17 +1,15 @@
 package com.dicoding.tourismapp.core.data
 
 import com.dicoding.tourismapp.core.data.source.remote.network.ApiResponse
-
-import com.dicoding.tourismapp.core.utils.AppExecutors
 import kotlinx.coroutines.flow.*
 
-abstract class NetworkBoundResource<ResultType, RequestType>(private val mExecutors: AppExecutors) {
+abstract class NetworkBoundResource<ResultType, RequestType>() {
 
     private var result: Flow<Resource<ResultType>> = flow {
         emit(Resource.Loading())
         val dbSource = loadFromDB().first()
         if (shouldFetch(dbSource)) {
-            emit(Resource.Loading(dbSource))
+            emit(Resource.Loading())
             when (val apiResponse = createCall().first()) {
                 is ApiResponse.Success -> {
                     saveCallResult(apiResponse.data)
@@ -19,13 +17,12 @@ abstract class NetworkBoundResource<ResultType, RequestType>(private val mExecut
                 }
                 is ApiResponse.Error -> {
                     onFetchFailed()
-                    emitAll(loadFromDB().map { Resource.Error(apiResponse.errorMessage, it) })
+                    emit(Resource.Error(apiResponse.errorMessage))
                 }
             }
         } else {
             emitAll(loadFromDB().map { Resource.Success(it) })
         }
-
     }
 
     protected open fun onFetchFailed() {}

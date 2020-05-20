@@ -10,8 +10,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.tourismapp.R
-import com.dicoding.tourismapp.core.ui.TourismAdapter
 import com.dicoding.tourismapp.core.data.Resource
+import com.dicoding.tourismapp.core.ui.TourismAdapter
 import com.dicoding.tourismapp.detail.DetailTourismActivity
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.view_error.*
@@ -28,7 +28,6 @@ class HomeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         if (activity != null) {
-
             val factory = HomeViewModelFactory.getInstance(requireActivity())
             val viewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
 
