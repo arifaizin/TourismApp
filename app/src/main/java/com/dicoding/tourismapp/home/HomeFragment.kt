@@ -13,8 +13,10 @@ import com.dicoding.tourismapp.R
 import com.dicoding.tourismapp.core.data.Resource
 import com.dicoding.tourismapp.core.ui.TourismAdapter
 import com.dicoding.tourismapp.detail.DetailTourismActivity
+import com.dicoding.tourismapp.favorite.FavoriteViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.view_error.*
+import javax.inject.Inject
 
 class HomeFragment : Fragment() {
 
@@ -25,11 +27,14 @@ class HomeFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
+    @Inject
+    lateinit var viewModel: HomeViewModel
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         if (activity != null) {
-            val factory = HomeViewModelFactory.getInstance(requireActivity())
-            val viewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
+//            val factory = HomeViewModelFactory.getInstance(requireActivity())
+//            val viewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
 
             val tourismAdapter = TourismAdapter()
             tourismAdapter.onItemClick = { selectedData ->

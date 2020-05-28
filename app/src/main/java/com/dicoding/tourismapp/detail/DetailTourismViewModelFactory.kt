@@ -1,22 +1,22 @@
 package com.dicoding.tourismapp.detail
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.tourismapp.core.domain.SetFavoriteTourismUseCase
+import javax.inject.Inject
 
-class DetailTourismViewModelFactory private constructor(private val setFavoriteTourismUseCase: SetFavoriteTourismUseCase) :
+class DetailTourismViewModelFactory @Inject constructor(private val setFavoriteTourismUseCase: SetFavoriteTourismUseCase) :
     ViewModelProvider.NewInstanceFactory() {
 
-    companion object {
-        @Volatile
-        private var instance: DetailTourismViewModelFactory? = null
-
-        fun getInstance(context: Context): DetailTourismViewModelFactory =
-            instance ?: synchronized(this) {
-                instance ?: DetailTourismViewModelFactory(Injection.provideSetFavoriteTourismUseCase(context))
-            }
-    }
+//    companion object {
+//        @Volatile
+//        private var instance: DetailTourismViewModelFactory? = null
+//
+//        fun getInstance(context: Context): DetailTourismViewModelFactory =
+//            instance ?: synchronized(this) {
+//                instance ?: DetailTourismViewModelFactory(Injection.provideSetFavoriteTourismUseCase(context))
+//            }
+//    }
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T =

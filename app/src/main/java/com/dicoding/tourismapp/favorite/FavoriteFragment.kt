@@ -12,8 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.tourismapp.R
 import com.dicoding.tourismapp.core.ui.TourismAdapter
 import com.dicoding.tourismapp.detail.DetailTourismActivity
+import com.dicoding.tourismapp.detail.DetailTourismViewModel
 import kotlinx.android.synthetic.main.fragment_favorite.*
 import kotlinx.android.synthetic.main.fragment_home.rv_tourism
+import javax.inject.Inject
 
 class FavoriteFragment : Fragment() {
 
@@ -24,12 +26,15 @@ class FavoriteFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_favorite, container, false)
     }
 
+    @Inject
+    lateinit var viewModel: FavoriteViewModel
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         if (activity != null) {
 
-            val factory = FavoriteViewModelFactory.getInstance(requireActivity())
-            val viewModel = ViewModelProvider(this, factory)[FavoriteViewModel::class.java]
+//            val factory = FavoriteViewModelFactory.getInstance(requireActivity())
+//            val viewModel = ViewModelProvider(this, factory)[FavoriteViewModel::class.java]
 
             val tourismAdapter = TourismAdapter()
             tourismAdapter.onItemClick = { selectedData ->

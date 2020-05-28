@@ -9,10 +9,12 @@ import com.dicoding.tourismapp.R
 import com.dicoding.tourismapp.core.domain.Tourism
 import kotlinx.android.synthetic.main.activity_detail_tourism.*
 import kotlinx.android.synthetic.main.content_detail_tourism.*
+import javax.inject.Inject
 
 class DetailTourismActivity : AppCompatActivity() {
 
-    private lateinit var detailTourismViewModel: DetailTourismViewModel
+    @Inject
+    lateinit var detailTourismViewModel: DetailTourismViewModel
 
     companion object {
         const val EXTRA_DATA = "extra_data"
@@ -23,8 +25,8 @@ class DetailTourismActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail_tourism)
         setSupportActionBar(toolbar)
 
-        val factory = DetailTourismViewModelFactory.getInstance(this)
-        detailTourismViewModel = ViewModelProvider(this, factory)[DetailTourismViewModel::class.java]
+//        val factory = DetailTourismViewModelFactory.getInstance(this)
+//        detailTourismViewModel = ViewModelProvider(this, factory)[DetailTourismViewModel::class.java]
 
         val detailTourism = intent.getParcelableExtra<Tourism>(EXTRA_DATA)
         showDetailTourism(detailTourism)

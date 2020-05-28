@@ -1,22 +1,22 @@
 package com.dicoding.tourismapp.home
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.tourismapp.core.domain.GetAllTourismUseCase
+import javax.inject.Inject
 
-class HomeViewModelFactory private constructor(private val getAllTourismUseCase: GetAllTourismUseCase) :
+class HomeViewModelFactory @Inject constructor(private val getAllTourismUseCase: GetAllTourismUseCase) :
     ViewModelProvider.NewInstanceFactory() {
 
-    companion object {
-        @Volatile
-        private var instance: HomeViewModelFactory? = null
-
-        fun getInstance(context: Context): HomeViewModelFactory =
-            instance ?: synchronized(this) {
-                instance ?: HomeViewModelFactory(Injection.provideGetAllTourismUseCase(context))
-            }
-    }
+//    companion object {
+//        @Volatile
+//        private var instance: HomeViewModelFactory? = null
+//
+//        fun getInstance(context: Context): HomeViewModelFactory =
+//            instance ?: synchronized(this) {
+//                instance ?: HomeViewModelFactory(Injection.provideGetAllTourismUseCase(context))
+//            }
+//    }
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T =
