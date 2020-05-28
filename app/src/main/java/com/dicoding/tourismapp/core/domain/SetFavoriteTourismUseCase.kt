@@ -1,6 +1,8 @@
 package com.dicoding.tourismapp.core.domain
 
-class SetFavoriteTourismUseCase(private val tourismRepository: ITourismRepository) :
+import javax.inject.Inject
+
+class SetFavoriteTourismUseCase @Inject constructor(private val tourismRepository: ITourismRepository) :
     UseCase<Any, SetFavoriteTourismUseCase.Params>() {
 
     override fun run(params: Params) = tourismRepository.setFavoriteTourism(params.tourism, params.state)

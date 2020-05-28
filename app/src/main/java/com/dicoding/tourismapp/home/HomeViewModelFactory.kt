@@ -3,7 +3,6 @@ package com.dicoding.tourismapp.home
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.dicoding.tourismapp.core.di.Injection
 import com.dicoding.tourismapp.core.domain.GetAllTourismUseCase
 
 class HomeViewModelFactory private constructor(private val getAllTourismUseCase: GetAllTourismUseCase) :

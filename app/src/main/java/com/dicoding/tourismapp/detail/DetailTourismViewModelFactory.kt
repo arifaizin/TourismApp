@@ -3,7 +3,6 @@ package com.dicoding.tourismapp.detail
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.dicoding.tourismapp.core.di.Injection
 import com.dicoding.tourismapp.core.domain.SetFavoriteTourismUseCase
 
 class DetailTourismViewModelFactory private constructor(private val setFavoriteTourismUseCase: SetFavoriteTourismUseCase) :
