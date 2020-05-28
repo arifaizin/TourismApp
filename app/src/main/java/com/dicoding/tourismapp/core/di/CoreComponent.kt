@@ -1,22 +1,19 @@
 package com.dicoding.tourismapp.core.di
 
-import android.content.Context
 import com.dicoding.tourismapp.detail.DetailTourismActivity
 import com.dicoding.tourismapp.favorite.FavoriteFragment
 import com.dicoding.tourismapp.home.HomeFragment
-import dagger.BindsInstance
-import dagger.Component
+import dagger.Subcomponent
 
 @CoreScope
-@Component(
-    modules = [DatabaseModule::class, NetworkModule::class, RepositoryModule::class],
-    dependencies = [AppComponent::class]
+@Subcomponent(
+    modules = [DatabaseModule::class, NetworkModule::class, RepositoryModule::class]
 )
 interface CoreComponent {
 
-    @Component.Factory
+    @Subcomponent.Factory
     interface Factory {
-        fun create(@BindsInstance context: Context, appComponent: AppComponent): CoreComponent
+        fun create(): CoreComponent
     }
 
     fun inject(fragment: HomeFragment)
