@@ -3,12 +3,14 @@ package com.dicoding.tourismapp.core.data.source.remote
 import com.dicoding.tourismapp.core.data.source.remote.network.ApiResponse
 import com.dicoding.tourismapp.core.data.source.remote.network.ApiService
 import com.dicoding.tourismapp.core.data.source.remote.response.TourismResponse
+import com.dicoding.tourismapp.core.di.CoreScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
+@CoreScope
 class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
 
 //    hapus kode berikut

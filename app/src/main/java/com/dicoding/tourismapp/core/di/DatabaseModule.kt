@@ -6,19 +6,17 @@ import com.dicoding.tourismapp.core.data.source.local.room.TourismDao
 import com.dicoding.tourismapp.core.data.source.local.room.TourismDatabase
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
 
 @Module
 class DatabaseModule {
 
-    @Singleton
+    @CoreScope
     @Provides
     fun provideDatabase(context: Context): TourismDatabase = Room.databaseBuilder(
         context,
         TourismDatabase::class.java, "Tourism.db"
     ).fallbackToDestructiveMigration().build()
 
-    @Singleton
     @Provides
     fun provideTourismDao(database: TourismDatabase): TourismDao = database.tourismDao()
 }

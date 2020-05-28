@@ -1,30 +1,25 @@
 package com.dicoding.tourismapp.core.di
 
 import android.content.Context
-import com.dicoding.tourismapp.core.data.source.local.LocalDataSource
-import com.dicoding.tourismapp.core.data.source.local.room.TourismDao
-import com.dicoding.tourismapp.core.data.source.local.room.TourismDatabase
-import com.dicoding.tourismapp.core.data.source.remote.RemoteDataSource
-import com.dicoding.tourismapp.core.domain.ITourismRepository
-import com.dicoding.tourismapp.core.utils.AppExecutors
+import com.dicoding.tourismapp.detail.DetailTourismActivity
+import com.dicoding.tourismapp.favorite.FavoriteFragment
+import com.dicoding.tourismapp.home.HomeFragment
 import dagger.BindsInstance
 import dagger.Component
-import dagger.Provides
-import javax.inject.Singleton
 
-@Singleton
+@CoreScope
 @Component(
-    modules = [DatabaseModule::class, NetworkModule::class, RepositoryModule::class]
+    modules = [DatabaseModule::class, NetworkModule::class, RepositoryModule::class],
+    dependencies = [AppComponent::class]
 )
 interface CoreComponent {
 
     @Component.Factory
     interface Factory {
-        fun create(@BindsInstance context: Context): CoreComponent
+        fun create(@BindsInstance context: Context, appComponent: AppComponent): CoreComponent
     }
 
-    //harus ada ini untuk provide ke component yg depend kesini
-//    fun provideDatabase(): TourismDatabase
-//    fun provideTourismDao(): TourismDao
-    fun provideRepository(): ITourismRepository
+    fun inject(fragment: HomeFragment)
+    fun inject(fragment: FavoriteFragment)
+    fun inject(activity: DetailTourismActivity)
 }
