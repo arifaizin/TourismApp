@@ -7,7 +7,7 @@ import dagger.Subcomponent
 
 @CoreScope
 @Subcomponent(
-    modules = [DatabaseModule::class, NetworkModule::class, RepositoryModule::class]
+    modules = [RepositoryModule::class]
 )
 interface CoreComponent {
 

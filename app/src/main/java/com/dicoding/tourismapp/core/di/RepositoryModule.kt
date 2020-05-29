@@ -9,7 +9,7 @@ import dagger.Module
 import dagger.Provides
 
 
-@Module
+@Module (includes = [DatabaseModule::class, NetworkModule::class])
 class RepositoryModule {
 
     @Provides
