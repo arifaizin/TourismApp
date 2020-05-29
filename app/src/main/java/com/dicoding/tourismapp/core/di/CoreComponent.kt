@@ -4,8 +4,9 @@ import com.dicoding.tourismapp.detail.DetailTourismActivity
 import com.dicoding.tourismapp.favorite.FavoriteFragment
 import com.dicoding.tourismapp.home.HomeFragment
 import dagger.Subcomponent
+import javax.inject.Singleton
 
-@CoreScope
+@Singleton
 @Subcomponent(
     modules = [RepositoryModule::class]
 )
