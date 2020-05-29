@@ -1,8 +1,6 @@
 package com.dicoding.tourismapp
 
-import android.app.Activity
 import android.app.Application
-import android.content.Context
 import com.dicoding.tourismapp.core.di.AppComponent
 import com.dicoding.tourismapp.core.di.CoreComponent
 import com.dicoding.tourismapp.core.di.DaggerAppComponent
