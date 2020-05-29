@@ -18,7 +18,7 @@ class RepositoryModule {
     fun provideRepository(
         remote: RemoteDataSource,
         local: LocalDataSource,
-        app: AppExecutors
-    ): ITourismRepository = TourismRepository(remote, local, app)
+        executors: AppExecutors
+    ): ITourismRepository = TourismRepository(remote, local, executors)
 
 }
