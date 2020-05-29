@@ -21,8 +21,7 @@ class DetailTourismActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val coreComponent = (application as MyApplication).appComponent.coreComponent().create()
-        coreComponent.inject(this)
+        (application as MyApplication).coreComponent.inject(this)
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_tourism)

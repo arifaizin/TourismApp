@@ -29,8 +29,7 @@ class HomeFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        val coreComponent = (requireActivity().application as MyApplication).appComponent.coreComponent().create()
-        coreComponent.inject(this)
+        (requireActivity().application as MyApplication).coreComponent.inject(this)
     }
 
     @Inject
