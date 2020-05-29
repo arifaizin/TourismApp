@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.tourismapp.MyApplication
@@ -32,12 +33,17 @@ class FavoriteFragment : Fragment() {
     }
 
     @Inject
-    lateinit var viewModel: FavoriteViewModel
+    lateinit var factory: FavoriteViewModelFactory
+
+    private val viewModel: FavoriteViewModel by viewModels {
+        factory
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         if (activity != null) {
 
+//            hapus kode berikut
 //            val factory = FavoriteViewModelFactory.getInstance(requireActivity())
 //            val viewModel = ViewModelProvider(this, factory)[FavoriteViewModel::class.java]
 
@@ -48,7 +54,7 @@ class FavoriteFragment : Fragment() {
                 startActivity(intent)
             }
 
-            viewModel.getFavoriteTourism().observe(this, Observer { dataTourism ->
+            viewModel.getFavoriteTourism().observe(viewLifecycleOwner, Observer { dataTourism ->
                 tourismAdapter.setData(dataTourism)
                 view_empty.visibility = if (dataTourism.isNotEmpty()) View.GONE else View.VISIBLE
             })

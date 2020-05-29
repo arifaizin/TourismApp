@@ -7,11 +7,13 @@ import com.dicoding.tourismapp.core.domain.ITourismRepository
 import com.dicoding.tourismapp.core.utils.AppExecutors
 import dagger.Module
 import dagger.Provides
+import javax.inject.Singleton
 
 
 @Module(includes = [NetworkModule::class, DatabaseModule::class])
 class RepositoryModule {
 
+    @Singleton
     @Provides
     fun provideRepository(
         remote: RemoteDataSource,

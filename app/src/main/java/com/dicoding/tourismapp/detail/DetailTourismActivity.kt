@@ -1,6 +1,7 @@
 package com.dicoding.tourismapp.detail
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
@@ -14,7 +15,11 @@ import javax.inject.Inject
 class DetailTourismActivity : AppCompatActivity() {
 
     @Inject
-    lateinit var detailTourismViewModel: DetailTourismViewModel
+    lateinit var factory: DetailTourismViewModelFactory
+
+    private val detailTourismViewModel: DetailTourismViewModel by viewModels {
+        factory
+    }
 
     companion object {
         const val EXTRA_DATA = "extra_data"
@@ -27,6 +32,7 @@ class DetailTourismActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail_tourism)
         setSupportActionBar(toolbar)
 
+//        hapus kode berikut
 //        val factory = DetailTourismViewModelFactory.getInstance(this)
 //        detailTourismViewModel = ViewModelProvider(this, factory)[DetailTourismViewModel::class.java]
 

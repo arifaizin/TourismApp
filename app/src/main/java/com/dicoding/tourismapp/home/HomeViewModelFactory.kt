@@ -4,10 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.tourismapp.core.domain.GetAllTourismUseCase
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class HomeViewModelFactory @Inject constructor(private val getAllTourismUseCase: GetAllTourismUseCase) :
     ViewModelProvider.NewInstanceFactory() {
 
+//    hapus kode berikut
 //    companion object {
 //        @Volatile
 //        private var instance: HomeViewModelFactory? = null
