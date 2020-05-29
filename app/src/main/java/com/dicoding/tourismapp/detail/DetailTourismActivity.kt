@@ -23,8 +23,8 @@ class DetailTourismActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val appComponent = (application as MyApplication).appComponent
-        DaggerCoreComponent.factory().create(applicationContext, appComponent).inject(this)
+//        val appComponent = (application as MyApplication).appComponent
+//        DaggerCoreComponent.factory().create(applicationContext, appComponent).inject(this)
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_tourism)

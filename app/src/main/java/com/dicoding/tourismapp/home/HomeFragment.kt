@@ -32,8 +32,8 @@ class HomeFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        val appComponent = (requireActivity().application as MyApplication).appComponent
-        DaggerCoreComponent.factory().create(requireActivity(), appComponent).inject(this)
+//        val appComponent = (requireActivity().application as MyApplication).appComponent
+//        DaggerCoreComponent.factory().create(requireActivity(), appComponent).inject(this)
     }
 
     @Inject
