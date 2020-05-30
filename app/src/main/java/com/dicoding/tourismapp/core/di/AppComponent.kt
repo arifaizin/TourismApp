@@ -7,7 +7,8 @@ import dagger.Component
 
 @AppScope
 @Component(
-    dependencies = [CoreComponent::class]
+    dependencies = [CoreComponent::class],
+    modules = [ViewModelModule::class]
 )
 interface AppComponent {
     @Component.Factory

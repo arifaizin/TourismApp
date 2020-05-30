@@ -14,6 +14,7 @@ import com.dicoding.tourismapp.MyApplication
 import com.dicoding.tourismapp.R
 import com.dicoding.tourismapp.core.data.Resource
 import com.dicoding.tourismapp.core.ui.TourismAdapter
+import com.dicoding.tourismapp.core.ui.ViewModelFactory
 import com.dicoding.tourismapp.detail.DetailTourismActivity
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.view_error.*
@@ -34,7 +35,7 @@ class HomeFragment : Fragment() {
     }
 
     @Inject
-    lateinit var factory: HomeViewModelFactory
+    lateinit var factory: ViewModelFactory
 
     private val viewModel: HomeViewModel by viewModels {
         factory
