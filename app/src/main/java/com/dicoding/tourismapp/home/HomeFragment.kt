@@ -45,10 +45,6 @@ class HomeFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         if (activity != null) {
 
-//            hapus kode berikut
-//            val factory = HomeViewModelFactory.getInstance(requireActivity())
-//            val viewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
-
             val tourismAdapter = TourismAdapter()
             tourismAdapter.onItemClick = { selectedData ->
                 val intent = Intent(activity, DetailTourismActivity::class.java)

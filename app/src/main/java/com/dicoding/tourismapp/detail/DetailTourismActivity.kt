@@ -33,10 +33,6 @@ class DetailTourismActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail_tourism)
         setSupportActionBar(toolbar)
 
-//        hapus kode berikut
-//        val factory = DetailTourismViewModelFactory.getInstance(this)
-//        detailTourismViewModel = ViewModelProvider(this, factory)[DetailTourismViewModel::class.java]
-
         val detailTourism = intent.getParcelableExtra<Tourism>(EXTRA_DATA)
         showDetailTourism(detailTourism)
     }
