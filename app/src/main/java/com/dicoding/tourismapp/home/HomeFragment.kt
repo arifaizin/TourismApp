@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.tourismapp.R
 import com.dicoding.tourismapp.core.data.Resource
@@ -15,6 +14,7 @@ import com.dicoding.tourismapp.core.ui.TourismAdapter
 import com.dicoding.tourismapp.detail.DetailTourismActivity
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.view_error.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
 
@@ -25,11 +25,15 @@ class HomeFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
+    private val viewModel: HomeViewModel by viewModel()
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         if (activity != null) {
-            val factory = HomeViewModelFactory.getInstance(requireActivity())
-            val viewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
+
+//            hapus kode berikut
+//            val factory = HomeViewModelFactory.getInstance(requireActivity())
+//            val viewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
 
             val tourismAdapter = TourismAdapter()
             tourismAdapter.onItemClick = { selectedData ->
