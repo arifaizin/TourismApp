@@ -14,17 +14,17 @@ import dagger.multibindings.IntoMap
 abstract class ViewModelModule {
     @Binds
     @IntoMap
-    @com.dicoding.tourismapp.di.ViewModelKey(HomeViewModel::class)
+    @ViewModelKey(HomeViewModel::class)
     abstract fun bindHomeViewModel(viewModel: HomeViewModel): ViewModel
 
     @Binds
     @IntoMap
-    @com.dicoding.tourismapp.di.ViewModelKey(FavoriteViewModel::class)
+    @ViewModelKey(FavoriteViewModel::class)
     abstract fun bindFavoriteViewModel(viewModel: FavoriteViewModel): ViewModel
 
     @Binds
     @IntoMap
-    @com.dicoding.tourismapp.di.ViewModelKey(DetailTourismViewModel::class)
+    @ViewModelKey(DetailTourismViewModel::class)
     abstract fun bindDetailTourismViewModel(viewModel: DetailTourismViewModel): ViewModel
 
     @Binds
