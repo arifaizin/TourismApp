@@ -1,8 +1,7 @@
-package com.dicoding.tourismapp.core.di
+package com.dicoding.tourismapp.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.dicoding.tourismapp.core.ui.ViewModelFactory
 import com.dicoding.tourismapp.detail.DetailTourismViewModel
 import com.dicoding.tourismapp.favorite.FavoriteViewModel
 import com.dicoding.tourismapp.home.HomeViewModel

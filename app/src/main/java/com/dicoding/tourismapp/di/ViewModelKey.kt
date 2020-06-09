@@ -1,4 +1,4 @@
-package com.dicoding.tourismapp.core.di
+package com.dicoding.tourismapp.di
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey
