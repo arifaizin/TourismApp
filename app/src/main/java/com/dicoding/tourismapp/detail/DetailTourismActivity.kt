@@ -7,8 +7,8 @@ import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.dicoding.tourismapp.MyApplication
 import com.dicoding.tourismapp.R
-import com.dicoding.tourismapp.core.domain.Tourism
-import com.dicoding.tourismapp.core.ui.ViewModelFactory
+import com.dicoding.core.domain.Tourism
+import com.dicoding.tourismapp.di.ViewModelFactory
 import kotlinx.android.synthetic.main.activity_detail_tourism.*
 import kotlinx.android.synthetic.main.content_detail_tourism.*
 import javax.inject.Inject
