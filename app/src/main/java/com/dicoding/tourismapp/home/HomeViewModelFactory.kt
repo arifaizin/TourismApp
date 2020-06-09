@@ -2,10 +2,9 @@ package com.dicoding.tourismapp.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.dicoding.tourismapp.core.di.AppScope
+import com.dicoding.tourismapp.di.AppScope
 import com.dicoding.tourismapp.core.domain.GetAllTourismUseCase
 import javax.inject.Inject
-import javax.inject.Singleton
 
 @AppScope
 class HomeViewModelFactory @Inject constructor(private val getAllTourismUseCase: GetAllTourismUseCase) :

@@ -2,10 +2,9 @@ package com.dicoding.tourismapp.detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.dicoding.tourismapp.core.di.AppScope
+import com.dicoding.tourismapp.di.AppScope
 import com.dicoding.tourismapp.core.domain.SetFavoriteTourismUseCase
 import javax.inject.Inject
-import javax.inject.Singleton
 
 @AppScope
 class DetailTourismViewModelFactory @Inject constructor(private val setFavoriteTourismUseCase: SetFavoriteTourismUseCase) :

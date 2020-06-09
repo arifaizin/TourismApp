@@ -15,7 +15,6 @@ import com.dicoding.tourismapp.R
 import com.dicoding.tourismapp.core.ui.TourismAdapter
 import com.dicoding.tourismapp.detail.DetailTourismActivity
 import kotlinx.android.synthetic.main.fragment_favorite.*
-import kotlinx.android.synthetic.main.fragment_home.rv_tourism
 import javax.inject.Inject
 
 class FavoriteFragment : Fragment() {
