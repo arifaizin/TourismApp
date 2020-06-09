@@ -1,13 +1,11 @@
-package com.dicoding.tourismapp.core.ui
+package com.dicoding.tourismapp.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.dicoding.tourismapp.core.di.AppScope
 import javax.inject.Inject
 import javax.inject.Provider
-import javax.inject.Singleton
 
-@AppScope
+@com.dicoding.tourismapp.di.AppScope
 class ViewModelFactory @Inject constructor(
     private val creators: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>
 ) : ViewModelProvider.Factory {

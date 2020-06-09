@@ -1,4 +1,4 @@
-package com.dicoding.tourismapp.core.di
+package com.dicoding.tourismapp.di
 
 import javax.inject.Scope
 
