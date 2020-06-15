@@ -7,10 +7,12 @@ import com.dicoding.tourismapp.core.domain.ITourismRepository
 import com.dicoding.tourismapp.core.utils.AppExecutors
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 import javax.inject.Singleton
 
-
 @Module(includes = [NetworkModule::class, DatabaseModule::class])
+@InstallIn(ApplicationComponent::class)
 class RepositoryModule {
 
     @Singleton
