@@ -56,12 +56,10 @@ class DetailTourismActivity : AppCompatActivity() {
     }
 
     private fun setStatusFavorite(statusFavorite: Boolean) {
-        if (statusFavorite) fab.setImageDrawable(
-            ContextCompat.getDrawable(
-                this,
-                R.drawable.ic_favorite_white
-            )
-        )
-        else fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_not_favorite_white))
+        if (statusFavorite) {
+            fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_favorite_white))
+        } else {
+            fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_not_favorite_white))
+        }
     }
 }
