@@ -18,6 +18,7 @@ import com.dicoding.tourismapp.di.ViewModelFactory
 import com.dicoding.tourismapp.detail.DetailTourismActivity
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.view_error.*
+import timber.log.Timber
 import javax.inject.Inject
 
 class HomeFragment : Fragment() {
@@ -56,10 +57,12 @@ class HomeFragment : Fragment() {
                     when (tourism) {
                         is Resource.Loading -> progress_bar.visibility = View.VISIBLE
                         is Resource.Success -> {
+                            Timber.tag("TagNameThatIsReallyReallyReallyLong").d(tourism.data.toString())
                             progress_bar.visibility = View.GONE
                             tourismAdapter.setData(tourism.data)
                         }
                         is Resource.Error -> {
+                            Timber.e(tourism.message.toString())
                             progress_bar.visibility = View.GONE
                             view_error.visibility = View.VISIBLE
                             tv_error.text = tourism.message ?: getString(R.string.something_wrong)
