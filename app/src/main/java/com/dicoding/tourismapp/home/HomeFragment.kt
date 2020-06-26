@@ -57,7 +57,7 @@ class HomeFragment : Fragment() {
                     when (tourism) {
                         is Resource.Loading -> progress_bar.visibility = View.VISIBLE
                         is Resource.Success -> {
-                            Timber.tag("TagNameThatIsReallyReallyReallyLong").d(tourism.data.toString())
+                            Timber.tag("YourTag").d(tourism.data.toString())
                             progress_bar.visibility = View.GONE
                             tourismAdapter.setData(tourism.data)
                         }
