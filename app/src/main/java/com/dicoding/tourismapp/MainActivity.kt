@@ -1,14 +1,15 @@
 package com.dicoding.tourismapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.dicoding.tourismapp.favorite.FavoriteFragment
 import com.dicoding.tourismapp.home.HomeFragment
+import com.dicoding.tourismapp.maps.MapsActivity
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -51,7 +52,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 title = getString(R.string.menu_favorite)
             }
             R.id.nav_map -> {
-                Toast.makeText(this, "Coming soon", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, MapsActivity::class.java))
             }
         }
         if (fragment != null) {

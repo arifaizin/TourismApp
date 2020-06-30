@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".maps.MapsActivity" />
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -22,7 +22,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".detail.DetailTourismActivity"
             android:label="@string/title_activity_detail_home"
