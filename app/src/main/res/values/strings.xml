@@ -11,4 +11,6 @@
     <string name="title_activity_detail_home">DetailHomeActivity</string>
     <string name="no_data">Empty data</string>
     <string name="something_wrong">Oops.. something went wrong</string>
+
+    <string name="mapbox_access_token">pk.eyJ1IjoiYXJpZmFpemluIiwiYSI6ImNrYTI2c3R1cjAwNXAzbm1zaDYyZW1ra2cifQ.okSWF0zf58rWkhoVuYjShQ</string>
 </resources>

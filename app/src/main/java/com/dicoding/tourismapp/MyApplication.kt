@@ -11,7 +11,7 @@ open class MyApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        Mapbox.getInstance(applicationContext, BuildConfig.MAPBOX_ACCESS_TOKEN)
+        Mapbox.getInstance(applicationContext, getString(R.string.mapbox_access_token))
     }
 
     private val coreComponent: CoreComponent by lazy {

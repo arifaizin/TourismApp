@@ -83,16 +83,17 @@ class MapsActivity : AppCompatActivity() {
 
             val symbolManager = SymbolManager(mapView, mapboxMap, style)
             symbolManager.iconAllowOverlap = true
-
+            val options = ArrayList<SymbolOptions>()
             dataTourism?.forEach { data ->
                 latLngBoundsBuilder.include(LatLng(data.latitude, data.longitude))
-                symbolManager.create(
+                options.add(
                     SymbolOptions()
                         .withLatLng(LatLng(data.latitude, data.longitude))
                         .withIconImage(ICON_ID)
                         .withData(Gson().toJsonTree(data))
                 )
             }
+            symbolManager.create(options)
 
             val latLngBounds = latLngBoundsBuilder.build()
             mapboxMap.easeCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds, 50), 5000)
