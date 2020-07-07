@@ -1,30 +1,35 @@
 package com.dicoding.tourismapp.detail
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.dicoding.tourismapp.R
 import com.dicoding.tourismapp.core.data.source.local.entity.TourismEntity
+import com.dicoding.tourismapp.core.ui.ViewModelFactory
 import kotlinx.android.synthetic.main.activity_detail_tourism.*
 import kotlinx.android.synthetic.main.content_detail_tourism.*
 
 class DetailTourismActivity : AppCompatActivity() {
 
-    private lateinit var detailTourismViewModel: DetailTourismViewModel
-
     companion object {
         const val EXTRA_DATA = "extra_data"
+    }
+
+    private val factory: ViewModelFactory by lazy {
+        ViewModelFactory.getInstance(this)
+    }
+
+    private val detailTourismViewModel: DetailTourismViewModel by viewModels {
+        factory
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_tourism)
         setSupportActionBar(toolbar)
-
-        val factory = DetailTourismViewModelFactory.getInstance(this)
-        detailTourismViewModel = ViewModelProvider(this, factory)[DetailTourismViewModel::class.java]
 
         val detailTourism = intent.getParcelableExtra<TourismEntity>(EXTRA_DATA)
         showDetailTourism(detailTourism)
@@ -49,12 +54,10 @@ class DetailTourismActivity : AppCompatActivity() {
     }
 
     private fun setStatusFavorite(statusFavorite: Boolean) {
-        if (statusFavorite) fab.setImageDrawable(
-            ContextCompat.getDrawable(
-                this,
-                R.drawable.ic_favorite_white
-            )
-        )
-        else fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_not_favorite_white))
+        if (statusFavorite) {
+            fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_favorite_white))
+        } else {
+            fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_not_favorite_white))
+        }
     }
 }
