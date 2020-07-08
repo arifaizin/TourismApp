@@ -7,14 +7,13 @@ import com.dicoding.tourismapp.core.data.source.local.room.TourismDatabase
 
 import com.dicoding.tourismapp.core.data.TourismRepository
 import com.dicoding.tourismapp.core.data.source.remote.RemoteDataSource
-import com.dicoding.tourismapp.core.domain.GetAllTourismUseCase
-import com.dicoding.tourismapp.core.domain.GetFavoriteTourismUseCase
-import com.dicoding.tourismapp.core.domain.SetFavoriteTourismUseCase
+import com.dicoding.tourismapp.core.domain.usecase.TourismInteractor
+import com.dicoding.tourismapp.core.domain.usecase.TourismUseCase
 import com.dicoding.tourismapp.core.utils.AppExecutors
 import com.dicoding.tourismapp.core.utils.JsonHelper
 
 object Injection {
-    fun provideRepository(context: Context): TourismRepository {
+    private fun provideRepository(context: Context): TourismRepository {
         val database = TourismDatabase.getInstance(context)
 
         val remoteDataSource = RemoteDataSource.getInstance(JsonHelper(context))
@@ -24,18 +23,8 @@ object Injection {
         return TourismRepository.getInstance(remoteDataSource, localDataSource, appExecutors)
     }
 
-    fun provideGetAllTourismUseCase(context: Context): GetAllTourismUseCase {
+    fun provideTourismUseCase(context: Context): TourismUseCase {
         val repository = provideRepository(context)
-        return GetAllTourismUseCase(repository)
-    }
-
-    fun provideGetFavoriteTourismUseCase(context: Context): GetFavoriteTourismUseCase {
-        val repository = provideRepository(context)
-        return GetFavoriteTourismUseCase(repository)
-    }
-
-    fun provideSetFavoriteTourismUseCase(context: Context): SetFavoriteTourismUseCase {
-        val repository = provideRepository(context)
-        return SetFavoriteTourismUseCase(repository)
+        return TourismInteractor(repository)
     }
 }

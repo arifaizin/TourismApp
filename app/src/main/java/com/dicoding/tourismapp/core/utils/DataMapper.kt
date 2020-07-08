@@ -2,7 +2,7 @@ package com.dicoding.tourismapp.core.utils
 
 import com.dicoding.tourismapp.core.data.source.local.entity.TourismEntity
 import com.dicoding.tourismapp.core.data.source.remote.response.TourismResponse
-import com.dicoding.tourismapp.core.domain.Tourism
+import com.dicoding.tourismapp.core.domain.model.Tourism
 
 object DataMapper {
     fun mapResponsesToEntities(input: List<TourismResponse>): List<TourismEntity> {
@@ -24,17 +24,18 @@ object DataMapper {
         return tourismList
     }
 
-    fun mapEntityToDomain(input: TourismEntity) = Tourism(
-        tourismId = input.tourismId,
-        description = input.description,
-        name = input.name,
-        address = input.address,
-        latitude = input.latitude,
-        longitude = input.longitude,
-        like = input.like,
-        image = input.image,
-        isFavorite = input.isFavorite
-    )
+    fun mapEntityToDomain(input: TourismEntity) =
+        Tourism(
+            tourismId = input.tourismId,
+            description = input.description,
+            name = input.name,
+            address = input.address,
+            latitude = input.latitude,
+            longitude = input.longitude,
+            like = input.like,
+            image = input.image,
+            isFavorite = input.isFavorite
+        )
 
     fun mapDomainToEntity(input: Tourism) = TourismEntity(
         tourismId = input.tourismId,
