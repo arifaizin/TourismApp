@@ -6,6 +6,8 @@ import com.dicoding.tourismapp.core.data.source.local.LocalDataSource
 import com.dicoding.tourismapp.core.data.source.local.room.TourismDatabase
 
 import com.dicoding.tourismapp.core.data.TourismRepository
+import com.dicoding.tourismapp.core.data.source.ILocalDataSource
+import com.dicoding.tourismapp.core.data.source.IRemoteDataSource
 import com.dicoding.tourismapp.core.data.source.remote.RemoteDataSource
 import com.dicoding.tourismapp.core.domain.usecase.TourismInteractor
 import com.dicoding.tourismapp.core.domain.usecase.TourismUseCase
@@ -16,8 +18,8 @@ object Injection {
     private fun provideRepository(context: Context): TourismRepository {
         val database = TourismDatabase.getInstance(context)
 
-        val remoteDataSource = RemoteDataSource.getInstance(JsonHelper(context))
-        val localDataSource = LocalDataSource.getInstance(database.tourismDao())
+        val remoteDataSource: IRemoteDataSource = RemoteDataSource.getInstance(JsonHelper(context))
+        val localDataSource: ILocalDataSource = LocalDataSource.getInstance(database.tourismDao())
         val appExecutors = AppExecutors()
 
         return TourismRepository.getInstance(remoteDataSource, localDataSource, appExecutors)

@@ -2,6 +2,8 @@ package com.dicoding.tourismapp.core.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
+import com.dicoding.tourismapp.core.data.source.ILocalDataSource
+import com.dicoding.tourismapp.core.data.source.IRemoteDataSource
 import com.dicoding.tourismapp.core.domain.repository.ITourismRepository
 import com.dicoding.tourismapp.core.data.source.remote.network.ApiResponse
 import com.dicoding.tourismapp.core.data.source.local.LocalDataSource
@@ -12,8 +14,8 @@ import com.dicoding.tourismapp.core.utils.AppExecutors
 import com.dicoding.tourismapp.core.utils.DataMapper
 
 class TourismRepository private constructor(
-    private val remoteDataSource: RemoteDataSource,
-    private val localDataSource: LocalDataSource,
+    private val remoteDataSource: IRemoteDataSource,
+    private val localDataSource: ILocalDataSource,
     private val appExecutors: AppExecutors
 ) : ITourismRepository {
 
@@ -22,8 +24,8 @@ class TourismRepository private constructor(
         private var instance: TourismRepository? = null
 
         fun getInstance(
-            remoteData: RemoteDataSource,
-            localData: LocalDataSource,
+            remoteData: IRemoteDataSource,
+            localData: ILocalDataSource,
             appExecutors: AppExecutors
         ): TourismRepository =
             instance ?: synchronized(this) {
