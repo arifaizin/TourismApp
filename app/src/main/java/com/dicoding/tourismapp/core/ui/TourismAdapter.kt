@@ -17,8 +17,8 @@ class TourismAdapter : RecyclerView.Adapter<TourismAdapter.ListViewHolder>() {
 
     fun setData(newListData: List<Tourism>?) {
         if (newListData == null) return
-        this.listData.clear()
-        this.listData.addAll(newListData)
+        listData.clear()
+        listData.addAll(newListData)
         notifyDataSetChanged()
     }
 

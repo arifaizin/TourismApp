@@ -6,17 +6,28 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.tourismapp.R
 import com.dicoding.tourismapp.core.ui.TourismAdapter
 import com.dicoding.tourismapp.core.data.Resource
+import com.dicoding.tourismapp.core.ui.ViewModelFactory
 import com.dicoding.tourismapp.detail.DetailTourismActivity
+import com.dicoding.tourismapp.favorite.FavoriteViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.view_error.*
 
 class HomeFragment : Fragment() {
+
+    private val factory: ViewModelFactory by lazy {
+        ViewModelFactory.getInstance(requireActivity())
+    }
+
+    private val homeViewModel: HomeViewModel by viewModels {
+        factory
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,12 +36,10 @@ class HomeFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        if (activity != null) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-            val factory = HomeViewModelFactory.getInstance(requireActivity())
-            val viewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
+        if (activity != null) {
 
             val tourismAdapter = TourismAdapter()
             tourismAdapter.onItemClick = { selectedData ->
@@ -38,8 +47,8 @@ class HomeFragment : Fragment() {
                 intent.putExtra(DetailTourismActivity.EXTRA_DATA, selectedData)
                 startActivity(intent)
             }
-            
-            viewModel.getTourism().observe(viewLifecycleOwner, Observer { tourism ->
+
+            homeViewModel.tourism.observe(viewLifecycleOwner, Observer { tourism ->
                 if (tourism != null) {
                     when (tourism) {
                         is Resource.Loading -> progress_bar.visibility = View.VISIBLE
