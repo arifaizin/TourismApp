@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.tourismapp.R
 import com.dicoding.tourismapp.core.data.Resource
@@ -19,13 +19,7 @@ import kotlinx.android.synthetic.main.view_error.*
 
 class HomeFragment : Fragment() {
 
-    private val factory: ViewModelFactory by lazy {
-        ViewModelFactory.getInstance(requireActivity())
-    }
-
-    private val homeViewModel: HomeViewModel by viewModels {
-        factory
-    }
+    private lateinit var homeViewModel: HomeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,6 +39,9 @@ class HomeFragment : Fragment() {
                 intent.putExtra(DetailTourismActivity.EXTRA_DATA, selectedData)
                 startActivity(intent)
             }
+
+            val factory = ViewModelFactory.getInstance(requireActivity())
+            homeViewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
 
             homeViewModel.tourism.observe(viewLifecycleOwner, Observer { tourism ->
                 if (tourism != null) {
