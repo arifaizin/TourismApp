@@ -1,7 +1,6 @@
 package com.dicoding.tourismapp.detail
 
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
@@ -14,22 +13,19 @@ import kotlinx.android.synthetic.main.content_detail_tourism.*
 
 class DetailTourismActivity : AppCompatActivity() {
 
+    private lateinit var detailTourismViewModel: DetailTourismViewModel
+
     companion object {
         const val EXTRA_DATA = "extra_data"
-    }
-
-    private val factory: ViewModelFactory by lazy {
-        ViewModelFactory.getInstance(this)
-    }
-
-    private val detailTourismViewModel: DetailTourismViewModel by viewModels {
-        factory
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_tourism)
         setSupportActionBar(toolbar)
+
+        val factory = ViewModelFactory.getInstance(this)
+        detailTourismViewModel = ViewModelProvider(this, factory)[DetailTourismViewModel::class.java]
 
         val detailTourism = intent.getParcelableExtra<TourismEntity>(EXTRA_DATA)
         showDetailTourism(detailTourism)
