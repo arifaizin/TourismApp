@@ -1,4 +1,4 @@
-package com.dicoding.tourismapp.core.data.source
+package com.dicoding.tourismapp.core.data.source.remote
 
 import androidx.lifecycle.LiveData
 import com.dicoding.tourismapp.core.data.source.remote.network.ApiResponse

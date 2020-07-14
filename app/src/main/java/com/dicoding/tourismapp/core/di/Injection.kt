@@ -6,8 +6,8 @@ import com.dicoding.tourismapp.core.data.source.local.LocalDataSource
 import com.dicoding.tourismapp.core.data.source.local.room.TourismDatabase
 
 import com.dicoding.tourismapp.core.data.TourismRepository
-import com.dicoding.tourismapp.core.data.source.ILocalDataSource
-import com.dicoding.tourismapp.core.data.source.IRemoteDataSource
+import com.dicoding.tourismapp.core.data.source.local.ILocalDataSource
+import com.dicoding.tourismapp.core.data.source.remote.IRemoteDataSource
 import com.dicoding.tourismapp.core.data.source.remote.RemoteDataSource
 import com.dicoding.tourismapp.core.domain.usecase.TourismInteractor
 import com.dicoding.tourismapp.core.domain.usecase.TourismUseCase

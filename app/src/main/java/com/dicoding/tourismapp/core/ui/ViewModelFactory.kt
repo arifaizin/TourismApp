@@ -17,12 +17,10 @@ class ViewModelFactory private constructor(private val tourismUseCase: TourismUs
         private var instance: ViewModelFactory? = null
 
         fun getInstance(context: Context): ViewModelFactory =
-            instance
-                ?: synchronized(this) {
-                instance
-                    ?: ViewModelFactory(
-                        Injection.provideTourismUseCase(context)
-                    )
+            instance ?: synchronized(this) {
+                instance ?: ViewModelFactory(
+                    Injection.provideTourismUseCase(context)
+                )
             }
     }
 
