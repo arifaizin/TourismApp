@@ -8,8 +8,7 @@ import com.dicoding.tourismapp.core.data.source.remote.response.TourismResponse
 import com.dicoding.tourismapp.core.utils.JsonHelper
 import org.json.JSONException
 
-class RemoteDataSource private constructor(private val jsonHelper: JsonHelper):
-    IRemoteDataSource {
+class RemoteDataSource private constructor(private val jsonHelper: JsonHelper) {
     companion object {
         @Volatile
         private var instance: RemoteDataSource? = null
@@ -20,7 +19,7 @@ class RemoteDataSource private constructor(private val jsonHelper: JsonHelper):
             }
     }
 
-    override fun getAllTourism(): LiveData<ApiResponse<List<TourismResponse>>> {
+    fun getAllTourism(): LiveData<ApiResponse<List<TourismResponse>>> {
         val resultData = MutableLiveData<ApiResponse<List<TourismResponse>>>()
 
         //get data from local json
@@ -33,7 +32,7 @@ class RemoteDataSource private constructor(private val jsonHelper: JsonHelper):
                 } else {
                     resultData.value = ApiResponse.Empty
                 }
-            } catch (e: JSONException){
+            } catch (e: JSONException) {
                 resultData.value = ApiResponse.Error(e.toString())
             }
         }, 2000)
