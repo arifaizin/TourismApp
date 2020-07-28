@@ -1,6 +1,7 @@
 package com.dicoding.tourismapp.core.data.source.remote
 
 import android.os.Handler
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.dicoding.tourismapp.core.data.source.remote.network.ApiResponse
@@ -34,6 +35,7 @@ class RemoteDataSource private constructor(private val jsonHelper: JsonHelper) {
                 }
             } catch (e: JSONException) {
                 resultData.value = ApiResponse.Error(e.toString())
+                Log.e("RemoteDataSource", e.toString())
             }
         }, 2000)
 
