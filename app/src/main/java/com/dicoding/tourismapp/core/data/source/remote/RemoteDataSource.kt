@@ -1,5 +1,6 @@
 package com.dicoding.tourismapp.core.data.source.remote
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.dicoding.tourismapp.core.data.source.remote.network.ApiResponse
@@ -38,7 +39,7 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
 
             override fun onFailure(call: Call<ListTourismResponse>, t: Throwable) {
                 resultData.value = ApiResponse.Error(t.message.toString())
-                t.printStackTrace()
+                Log.e("RemoteDataSource", t.message.toString())
             }
         })
 
