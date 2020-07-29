@@ -6,7 +6,8 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.dicoding.tourismapp.R
-import com.dicoding.tourismapp.core.domain.Tourism
+import com.dicoding.tourismapp.core.domain.model.Tourism
+import com.dicoding.tourismapp.core.ui.ViewModelFactory
 import kotlinx.android.synthetic.main.activity_detail_tourism.*
 import kotlinx.android.synthetic.main.content_detail_tourism.*
 
@@ -23,7 +24,7 @@ class DetailTourismActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail_tourism)
         setSupportActionBar(toolbar)
 
-        val factory = DetailTourismViewModelFactory.getInstance(this)
+        val factory = ViewModelFactory.getInstance(this)
         detailTourismViewModel = ViewModelProvider(this, factory)[DetailTourismViewModel::class.java]
 
         val detailTourism = intent.getParcelableExtra<Tourism>(EXTRA_DATA)
@@ -49,12 +50,10 @@ class DetailTourismActivity : AppCompatActivity() {
     }
 
     private fun setStatusFavorite(statusFavorite: Boolean) {
-        if (statusFavorite) fab.setImageDrawable(
-            ContextCompat.getDrawable(
-                this,
-                R.drawable.ic_favorite_white
-            )
-        )
-        else fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_not_favorite_white))
+        if (statusFavorite) {
+            fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_favorite_white))
+        } else {
+            fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_not_favorite_white))
+        }
     }
 }
