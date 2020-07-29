@@ -3,7 +3,7 @@ package com.dicoding.tourismapp.core.data
 import com.dicoding.tourismapp.core.data.source.remote.network.ApiResponse
 import kotlinx.coroutines.flow.*
 
-abstract class NetworkBoundResource<ResultType, RequestType>() {
+abstract class NetworkBoundResource<ResultType, RequestType> {
 
     private var result: Flow<Resource<ResultType>> = flow {
         emit(Resource.Loading())
