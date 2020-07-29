@@ -4,8 +4,8 @@ import com.dicoding.tourismapp.core.data.source.local.LocalDataSource
 import com.dicoding.tourismapp.core.data.source.remote.RemoteDataSource
 import com.dicoding.tourismapp.core.data.source.remote.network.ApiResponse
 import com.dicoding.tourismapp.core.data.source.remote.response.TourismResponse
-import com.dicoding.tourismapp.core.domain.ITourismRepository
-import com.dicoding.tourismapp.core.domain.Tourism
+import com.dicoding.tourismapp.core.domain.model.Tourism
+import com.dicoding.tourismapp.core.domain.repository.ITourismRepository
 import com.dicoding.tourismapp.core.utils.AppExecutors
 import com.dicoding.tourismapp.core.utils.DataMapper
 import io.reactivex.Flowable

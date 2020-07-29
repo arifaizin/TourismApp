@@ -1,6 +1,7 @@
 package com.dicoding.tourismapp.core.data.source.remote
 
 import android.annotation.SuppressLint
+import android.util.Log
 import com.dicoding.tourismapp.core.data.source.remote.network.ApiResponse
 import com.dicoding.tourismapp.core.data.source.remote.network.ApiService
 import com.dicoding.tourismapp.core.data.source.remote.response.TourismResponse
@@ -32,12 +33,12 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .take(1)
-            .subscribe ({ response ->
+            .subscribe({ response ->
                 val dataArray = response.places
                 resultData.onNext(if (dataArray.isNotEmpty()) ApiResponse.Success(dataArray) else ApiResponse.Empty)
-            }, {
-                error ->
+            }, { error ->
                 resultData.onNext(ApiResponse.Error(error.message.toString()))
+                Log.e("RemoteDataSource", error.toString())
             })
 
         return resultData.toFlowable(BackpressureStrategy.BUFFER)
