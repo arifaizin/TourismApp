@@ -4,6 +4,7 @@ import androidx.room.*
 import com.dicoding.tourismapp.core.data.source.local.entity.TourismEntity
 import io.reactivex.Completable
 import io.reactivex.Flowable
+import io.reactivex.Single
 
 @Dao
 interface TourismDao {
@@ -18,5 +19,5 @@ interface TourismDao {
     fun insertTourism(tourism: List<TourismEntity>): Completable
 
     @Update
-    fun updateFavoriteTourism(tourism: TourismEntity)
+    fun updateFavoriteTourism(tourism: TourismEntity): Completable
 }

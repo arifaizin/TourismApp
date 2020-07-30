@@ -2,7 +2,9 @@ package com.dicoding.tourismapp.core.data.source.local
 
 import com.dicoding.tourismapp.core.data.source.local.entity.TourismEntity
 import com.dicoding.tourismapp.core.data.source.local.room.TourismDao
+import io.reactivex.Completable
 import io.reactivex.Flowable
+import io.reactivex.Single
 
 class LocalDataSource private constructor(private val tourismDao: TourismDao) {
 
@@ -22,8 +24,8 @@ class LocalDataSource private constructor(private val tourismDao: TourismDao) {
     fun insertTourism(tourismList: List<TourismEntity>) =
         tourismDao.insertTourism(tourismList)
 
-    fun setFavoriteTourism(tourism: TourismEntity, newState: Boolean) {
+    fun setFavoriteTourism(tourism: TourismEntity, newState: Boolean): Completable {
         tourism.isFavorite = newState
-        tourismDao.updateFavoriteTourism(tourism)
+        return tourismDao.updateFavoriteTourism(tourism)
     }
 }

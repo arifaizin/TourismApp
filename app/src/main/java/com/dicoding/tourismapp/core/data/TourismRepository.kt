@@ -41,8 +41,8 @@ class TourismRepository private constructor(
             }
 
             override fun shouldFetch(data: List<Tourism>?): Boolean =
-//                data == null || data.isEmpty()
-                 true // ganti dengan true jika ingin selalu mengambil data dari internet
+                data == null || data.isEmpty()
+//                 true // ganti dengan true jika ingin selalu mengambil data dari internet
 
             override fun createCall(): Flowable<ApiResponse<List<TourismResponse>>> =
                 remoteDataSource.getAllTourism()
@@ -64,7 +64,9 @@ class TourismRepository private constructor(
 
     override fun setFavoriteTourism(tourism: Tourism, state: Boolean) {
         val tourismEntity = DataMapper.mapDomainToEntity(tourism)
-        appExecutors.diskIO().execute { localDataSource.setFavoriteTourism(tourismEntity, state) }
+        localDataSource.setFavoriteTourism(tourismEntity, state).subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe()
     }
 }
 
