@@ -13,10 +13,10 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
             when (val apiResponse = createCall().first()) {
                 is ApiResponse.Success -> {
                     saveCallResult(apiResponse.data)
-                    emit(Resource.Success(loadFromDB().first()))
+                    emitAll(loadFromDB().map { Resource.Success(it) })
                 }
                 is ApiResponse.Empty -> {
-                    emit(Resource.Success(dbSource))
+                    emitAll(loadFromDB().map { Resource.Success(it) })
                 }
                 is ApiResponse.Error -> {
                     onFetchFailed()
@@ -24,7 +24,7 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
                 }
             }
         } else {
-            emit(Resource.Success(dbSource))
+            emitAll(loadFromDB().map { Resource.Success(it) })
         }
     }
 
