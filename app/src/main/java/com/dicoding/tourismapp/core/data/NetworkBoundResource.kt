@@ -50,9 +50,9 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .take(1)
-//            .doOnComplete {
-//                mCompositeDisposable.dispose()
-//            }
+            .doOnComplete {
+                mCompositeDisposable.dispose()
+            }
             .subscribe { response ->
                 when (response) {
                     is ApiResponse.Success -> {
