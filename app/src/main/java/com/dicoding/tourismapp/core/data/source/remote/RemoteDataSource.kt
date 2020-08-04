@@ -7,6 +7,9 @@ import com.dicoding.tourismapp.core.data.source.remote.network.ApiResponse
 import com.dicoding.tourismapp.core.data.source.remote.network.ApiService
 import com.dicoding.tourismapp.core.data.source.remote.response.ListTourismResponse
 import com.dicoding.tourismapp.core.data.source.remote.response.TourismResponse
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class RemoteDataSource private constructor(private val apiService: ApiService) {
     companion object {
@@ -25,16 +28,16 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
         //get data from remote api
         val client = apiService.getList()
 
-        client.enqueue(object : retrofit2.Callback<ListTourismResponse> {
+        client.enqueue(object : Callback<ListTourismResponse> {
             override fun onResponse(
-                call: retrofit2.Call<ListTourismResponse>,
-                response: retrofit2.Response<ListTourismResponse>
+                call: Call<ListTourismResponse>,
+                response: Response<ListTourismResponse>
             ) {
                 val dataArray = response.body()?.places
                 resultData.value = if (dataArray != null) ApiResponse.Success(dataArray) else ApiResponse.Empty
             }
 
-            override fun onFailure(call: retrofit2.Call<ListTourismResponse>, t: Throwable) {
+            override fun onFailure(call: Call<ListTourismResponse>, t: Throwable) {
                 resultData.value = ApiResponse.Error(t.message.toString())
                 Log.e("RemoteDataSource", t.message.toString())
             }
