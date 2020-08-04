@@ -31,11 +31,11 @@ class TourismRepository private constructor(
             }
     }
 
-    override fun getAllTourism(): Flow<Resource<List<Tourism>>> =
-        object : NetworkBoundResource<List<Tourism>, List<TourismResponse>>() {
-            override fun loadFromDB(): Flow<List<Tourism>> {
-                return localDataSource.getAllTourism().map { tourismEntities ->
-                    tourismEntities.map { DataMapper.mapEntityToDomain(it) }
+    override fun getAllTourism(): LiveData<Resource<List<Tourism>>> =
+        object : NetworkBoundResource<List<Tourism>, List<TourismResponse>>(appExecutors) {
+            override fun loadFromDB(): LiveData<List<Tourism>> {
+                return Transformations.map(localDataSource.getAllTourism()) {
+                    DataMapper.mapEntitiesToDomain(it)
                 }
             }
 
@@ -52,9 +52,9 @@ class TourismRepository private constructor(
             }
         }.asFlow()
 
-    override fun getFavoriteTourism(): Flow<List<Tourism>> {
-        return localDataSource.getFavoriteTourism().map { tourismEntities ->
-            tourismEntities.map { (DataMapper.mapEntityToDomain(it)) }
+    override fun getFavoriteTourism(): LiveData<List<Tourism>> {
+        return Transformations.map(localDataSource.getFavoriteTourism()) {
+           DataMapper.mapEntitiesToDomain(it)
         }
     }
 
