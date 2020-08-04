@@ -1,6 +1,6 @@
 package com.dicoding.tourismapp.core.data.source.remote
 
-import android.util.Log
+import android.os.Handler
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.dicoding.tourismapp.core.data.source.remote.network.ApiResponse

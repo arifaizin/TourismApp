@@ -34,8 +34,8 @@ class TourismRepository private constructor(
     override fun getAllTourism(): LiveData<Resource<List<Tourism>>> =
         object : NetworkBoundResource<List<Tourism>, List<TourismResponse>>(appExecutors) {
             override fun loadFromDB(): LiveData<List<Tourism>> {
-                return Transformations.map(localDataSource.getAllTourism()) { tourismEntities ->
-                    tourismEntities.map { DataMapper.mapEntityToDomain(it) }
+                return Transformations.map(localDataSource.getAllTourism()) {
+                    DataMapper.mapEntitiesToDomain(it)
                 }
             }
 
@@ -53,8 +53,8 @@ class TourismRepository private constructor(
         }.asLiveData()
 
     override fun getFavoriteTourism(): LiveData<List<Tourism>> {
-        return Transformations.map(localDataSource.getFavoriteTourism()) { tourismEntities ->
-            tourismEntities.map { DataMapper.mapEntityToDomain(it) }
+        return Transformations.map(localDataSource.getFavoriteTourism()) {
+           DataMapper.mapEntitiesToDomain(it)
         }
     }
 
