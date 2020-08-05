@@ -16,7 +16,7 @@ import javax.inject.Inject
 class DetailTourismActivity : AppCompatActivity() {
 
     @Inject
-    lateinit var factory: DetailTourismViewModelFactory
+    lateinit var factory: ViewModelFactory
 
     private val detailTourismViewModel: DetailTourismViewModel by viewModels {
         factory
@@ -34,7 +34,7 @@ class DetailTourismActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
 //        hapus kode berikut
-//        val factory = DetailTourismViewModelFactory.getInstance(this)
+//        val factory = ViewModelFactory.getInstance(this)
 //        detailTourismViewModel = ViewModelProvider(this, factory)[DetailTourismViewModel::class.java]
 
         val detailTourism = intent.getParcelableExtra<Tourism>(EXTRA_DATA)

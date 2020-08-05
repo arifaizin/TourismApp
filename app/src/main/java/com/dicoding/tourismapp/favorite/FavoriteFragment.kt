@@ -20,7 +20,12 @@ import javax.inject.Inject
 
 class FavoriteFragment : Fragment() {
 
-    private lateinit var favoriteViewModel: FavoriteViewModel
+    @Inject
+    lateinit var factory: ViewModelFactory
+
+    private val favoriteViewModel: FavoriteViewModel by viewModels {
+        factory
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,19 +39,12 @@ class FavoriteFragment : Fragment() {
         (requireActivity().application as MyApplication).appComponent.inject(this)
     }
 
-    @Inject
-    lateinit var factory: FavoriteViewModelFactory
-
-    private val viewModel: FavoriteViewModel by viewModels {
-        factory
-    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         if (activity != null) {
 
 //            hapus kode berikut
-//            val factory = FavoriteViewModelFactory.getInstance(requireActivity())
+//            val factory = ViewModelFactory.getInstance(requireActivity())
 //            val viewModel = ViewModelProvider(this, factory)[FavoriteViewModel::class.java]
 
             val tourismAdapter = TourismAdapter()
@@ -56,7 +54,7 @@ class FavoriteFragment : Fragment() {
                 startActivity(intent)
             }
 
-            viewModel.getFavoriteTourism().observe(viewLifecycleOwner, Observer { dataTourism ->
+            favoriteViewModel.favoriteTourism.observe(viewLifecycleOwner, Observer { dataTourism ->
                 tourismAdapter.setData(dataTourism)
                 view_empty.visibility = if (dataTourism.isNotEmpty()) View.GONE else View.VISIBLE
             })

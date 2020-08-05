@@ -1,7 +1,7 @@
 package com.dicoding.tourismapp.core.di
 
 import android.content.Context
-import com.dicoding.tourismapp.core.domain.ITourismRepository
+import com.dicoding.tourismapp.core.domain.repository.ITourismRepository
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
