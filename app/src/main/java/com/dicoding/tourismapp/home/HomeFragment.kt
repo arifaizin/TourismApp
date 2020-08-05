@@ -20,6 +20,13 @@ import kotlinx.android.synthetic.main.view_error.*
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
+    @Inject
+    lateinit var factory: ViewModelFactory
+
+    private val homeViewModel: HomeViewModel by viewModels {
+        factory
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,13 +40,18 @@ class HomeFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         if (activity != null) {
 
+//            hapus kode berikut
+//            val factory = ViewModelFactory.getInstance(requireActivity())
+//            val viewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
+
             val tourismAdapter = TourismAdapter()
             tourismAdapter.onItemClick = { selectedData ->
                 val intent = Intent(activity, DetailTourismActivity::class.java)
                 intent.putExtra(DetailTourismActivity.EXTRA_DATA, selectedData)
                 startActivity(intent)
             }
-            viewModel.getTourism().observe(viewLifecycleOwner, Observer { tourism ->
+
+            homeViewModel.tourism.observe(viewLifecycleOwner, Observer { tourism ->
                 if (tourism != null) {
                     when (tourism) {
                         is Resource.Loading -> progress_bar.visibility = View.VISIBLE

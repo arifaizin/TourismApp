@@ -18,6 +18,13 @@ import kotlinx.android.synthetic.main.fragment_favorite.*
 @AndroidEntryPoint
 class FavoriteFragment : Fragment() {
 
+    @Inject
+    lateinit var factory: ViewModelFactory
+
+    private val favoriteViewModel: FavoriteViewModel by viewModels {
+        factory
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,6 +38,10 @@ class FavoriteFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         if (activity != null) {
 
+//            hapus kode berikut
+//            val factory = ViewModelFactory.getInstance(requireActivity())
+//            val viewModel = ViewModelProvider(this, factory)[FavoriteViewModel::class.java]
+
             val tourismAdapter = TourismAdapter()
             tourismAdapter.onItemClick = { selectedData ->
                 val intent = Intent(activity, DetailTourismActivity::class.java)
@@ -38,7 +49,7 @@ class FavoriteFragment : Fragment() {
                 startActivity(intent)
             }
 
-            viewModel.getFavoriteTourism().observe(viewLifecycleOwner, Observer { dataTourism ->
+            favoriteViewModel.favoriteTourism.observe(viewLifecycleOwner, Observer { dataTourism ->
                 tourismAdapter.setData(dataTourism)
                 view_empty.visibility = if (dataTourism.isNotEmpty()) View.GONE else View.VISIBLE
             })

@@ -25,6 +25,10 @@ class DetailTourismActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail_tourism)
         setSupportActionBar(toolbar)
 
+//        hapus kode berikut
+//        val factory = DetailTourismViewModelFactory.getInstance(this)
+//        detailTourismViewModel = ViewModelProvider(this, factory)[DetailTourismViewModel::class.java]
+
         val detailTourism = intent.getParcelableExtra<Tourism>(EXTRA_DATA)
         showDetailTourism(detailTourism)
     }
@@ -48,12 +52,10 @@ class DetailTourismActivity : AppCompatActivity() {
     }
 
     private fun setStatusFavorite(statusFavorite: Boolean) {
-        if (statusFavorite) fab.setImageDrawable(
-            ContextCompat.getDrawable(
-                this,
-                R.drawable.ic_favorite_white
-            )
-        )
-        else fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_not_favorite_white))
+        if (statusFavorite) {
+            fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_favorite_white))
+        } else {
+            fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_not_favorite_white))
+        }
     }
 }

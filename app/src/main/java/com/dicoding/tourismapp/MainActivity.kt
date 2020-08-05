@@ -34,10 +34,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         nav_view.setNavigationItemSelectedListener(this)
 
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.nav_host_fragment, HomeFragment())
-            .commit()
-        supportActionBar?.title = getString(R.string.app_name)
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.nav_host_fragment, HomeFragment())
+                .commit()
+            supportActionBar?.title = getString(R.string.app_name)
+        }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

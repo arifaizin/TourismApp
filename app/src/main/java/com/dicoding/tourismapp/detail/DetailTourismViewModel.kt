@@ -7,6 +7,6 @@ import com.dicoding.tourismapp.core.domain.Tourism
 
 class DetailTourismViewModel @ViewModelInject constructor(private val setFavoriteTourismUseCase: SetFavoriteTourismUseCase) : ViewModel() {
     fun setFavoriteTourism(tourism: Tourism, newStatus:Boolean) =
-        setFavoriteTourismUseCase.run(SetFavoriteTourismUseCase.Params(tourism, newStatus))
+        tourismUseCase.setFavoriteTourism(tourism, newStatus)
 }
 
