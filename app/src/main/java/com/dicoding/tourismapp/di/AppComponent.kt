@@ -9,7 +9,7 @@ import dagger.Component
 @AppScope
 @Component(
     dependencies = [CoreComponent::class],
-    modules = [ViewModelModule::class]
+    modules = [AppModule::class, ViewModelModule::class]
 )
 interface AppComponent {
     @Component.Factory
@@ -21,4 +21,3 @@ interface AppComponent {
     fun inject(fragment: FavoriteFragment)
     fun inject(activity: DetailTourismActivity)
 }
-    modules = [AppModule::class]
