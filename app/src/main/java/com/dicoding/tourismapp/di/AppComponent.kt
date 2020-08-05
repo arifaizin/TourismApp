@@ -21,3 +21,4 @@ interface AppComponent {
     fun inject(fragment: FavoriteFragment)
     fun inject(activity: DetailTourismActivity)
 }
+    modules = [AppModule::class]
