@@ -4,7 +4,6 @@ import com.dicoding.tourismapp.core.data.TourismRepository
 import com.dicoding.tourismapp.core.domain.repository.ITourismRepository
 import dagger.Binds
 import dagger.Module
-import javax.inject.Singleton
 
 
 @Module(includes = [NetworkModule::class, DatabaseModule::class])
