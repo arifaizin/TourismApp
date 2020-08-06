@@ -29,8 +29,14 @@ class HomeFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity().application as MyApplication).appComponent.inject(this)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         if (activity != null) {
 
             val tourismAdapter = TourismAdapter()
