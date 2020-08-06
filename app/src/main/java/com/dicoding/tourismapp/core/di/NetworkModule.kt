@@ -13,7 +13,6 @@ import java.util.concurrent.TimeUnit
 
 @Module
 @InstallIn(ApplicationComponent::class)
-
 class NetworkModule {
 
     @Provides

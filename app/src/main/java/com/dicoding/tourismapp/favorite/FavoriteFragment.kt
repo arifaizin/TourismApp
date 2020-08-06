@@ -27,11 +27,6 @@ class FavoriteFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_favorite, container, false)
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        (requireActivity().application as MyApplication).appComponent.inject(this)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
