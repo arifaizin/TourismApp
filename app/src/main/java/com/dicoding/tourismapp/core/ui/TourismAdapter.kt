@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dicoding.tourismapp.R
-import com.dicoding.tourismapp.core.domain.Tourism
+import com.dicoding.tourismapp.core.domain.model.Tourism
 import kotlinx.android.synthetic.main.item_list_tourism.view.*
-import java.util.ArrayList
+import java.util.*
 
 class TourismAdapter : RecyclerView.Adapter<TourismAdapter.ListViewHolder>() {
 
@@ -17,8 +17,8 @@ class TourismAdapter : RecyclerView.Adapter<TourismAdapter.ListViewHolder>() {
 
     fun setData(newListData: List<Tourism>?) {
         if (newListData == null) return
-        this.listData.clear()
-        this.listData.addAll(newListData)
+        listData.clear()
+        listData.addAll(newListData)
         notifyDataSetChanged()
     }
 
