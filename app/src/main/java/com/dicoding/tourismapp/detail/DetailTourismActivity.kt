@@ -6,7 +6,6 @@ import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.dicoding.tourismapp.R
 import com.dicoding.tourismapp.core.domain.model.Tourism
-import com.dicoding.tourismapp.core.ui.ViewModelFactory
 import kotlinx.android.synthetic.main.activity_detail_tourism.*
 import kotlinx.android.synthetic.main.content_detail_tourism.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -25,7 +24,7 @@ class DetailTourismActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
 //        hapus kode berikut
-//        val factory = DetailTourismViewModelFactory.getInstance(this)
+//        val factory = ViewModelFactory.getInstance(this)
 //        detailTourismViewModel = ViewModelProvider(this, factory)[DetailTourismViewModel::class.java]
 
         val detailTourism = intent.getParcelableExtra<Tourism>(EXTRA_DATA)

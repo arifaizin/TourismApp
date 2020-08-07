@@ -6,7 +6,7 @@ import com.dicoding.tourismapp.core.data.source.local.LocalDataSource
 import com.dicoding.tourismapp.core.data.source.local.room.TourismDatabase
 import com.dicoding.tourismapp.core.data.source.remote.RemoteDataSource
 import com.dicoding.tourismapp.core.data.source.remote.network.ApiService
-import com.dicoding.tourismapp.core.domain.ITourismRepository
+import com.dicoding.tourismapp.core.domain.repository.ITourismRepository
 import com.dicoding.tourismapp.core.utils.AppExecutors
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

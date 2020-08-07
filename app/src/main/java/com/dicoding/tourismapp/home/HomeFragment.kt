@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.tourismapp.R
 import com.dicoding.tourismapp.core.data.Resource
 import com.dicoding.tourismapp.core.ui.TourismAdapter
-import com.dicoding.tourismapp.core.ui.ViewModelFactory
 import com.dicoding.tourismapp.detail.DetailTourismActivity
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.view_error.*
@@ -19,7 +18,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
+    private val homeViewModel: HomeViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,18 +27,14 @@ class HomeFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
-    private val viewModel: HomeViewModel by viewModel()
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         if (activity != null) {
 
 //            hapus kode berikut
-//            val factory = HomeViewModelFactory.getInstance(requireActivity())
-//            val viewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
+//            val factory = ViewModelFactory.getInstance(requireActivity())
+//            homeViewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
 
             val tourismAdapter = TourismAdapter()
             tourismAdapter.onItemClick = { selectedData ->
@@ -47,9 +42,6 @@ class HomeFragment : Fragment() {
                 intent.putExtra(DetailTourismActivity.EXTRA_DATA, selectedData)
                 startActivity(intent)
             }
-
-            val factory = ViewModelFactory.getInstance(requireActivity())
-            homeViewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
 
             homeViewModel.tourism.observe(viewLifecycleOwner, Observer { tourism ->
                 if (tourism != null) {
