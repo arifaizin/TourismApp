@@ -2,8 +2,7 @@ package com.dicoding.tourismapp
 
 import android.app.Application
 import com.dicoding.tourismapp.core.di.*
-import com.dicoding.tourismapp.di.useCaseModule
-import com.dicoding.tourismapp.di.viewModelModule
+import com.dicoding.tourismapp.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
