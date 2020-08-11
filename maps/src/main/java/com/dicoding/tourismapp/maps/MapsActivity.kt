@@ -20,6 +20,12 @@ class MapsActivity : AppCompatActivity() {
 
         loadKoinModules(mapsModule)
 
+        supportActionBar?.title = "Tourism Map"
+
+        getTourismData()
+    }
+
+    private fun getTourismData() {
         mapsViewModel.tourism.observe(this, Observer { tourism ->
             if (tourism != null) {
                 when (tourism) {
