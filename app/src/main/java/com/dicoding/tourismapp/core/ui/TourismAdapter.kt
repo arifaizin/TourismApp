@@ -1,52 +1,60 @@
 package com.dicoding.tourismapp.core.ui
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.dicoding.tourismapp.R
+import com.dicoding.tourismapp.core.data.source.local.entity.TourismEntity
 import com.dicoding.tourismapp.core.domain.model.Tourism
-import kotlinx.android.synthetic.main.item_list_tourism.view.*
-import java.util.*
+import com.dicoding.tourismapp.databinding.ItemListTourismBinding
 
-class TourismAdapter : RecyclerView.Adapter<TourismAdapter.ListViewHolder>() {
+class TourismAdapter : ListAdapter<Tourism, TourismAdapter.ListViewHolder>(DIFF_CALLBACK) {
 
-    private var listData = ArrayList<Tourism>()
     var onItemClick: ((Tourism) -> Unit)? = null
 
-    fun setData(newListData: List<Tourism>?) {
-        if (newListData == null) return
-        listData.clear()
-        listData.addAll(newListData)
-        notifyDataSetChanged()
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        ListViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_list_tourism, parent, false))
-
-    override fun getItemCount() = listData.size
+        ListViewHolder(
+            ItemListTourismBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        val data = listData[position]
+        val data = getItem(position)
         holder.bind(data)
     }
 
-    inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ListViewHolder(private var binding: ItemListTourismBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(data: Tourism) {
-            with(itemView) {
-                Glide.with(itemView.context)
-                    .load(data.image)
-                    .into(iv_item_image)
-                tv_item_title.text = data.name
-                tv_item_subtitle.text = data.address
-            }
+            Glide.with(itemView.context)
+                .load(data.image)
+                .into(binding.ivItemImage)
+            binding.tvItemTitle.text = data.name
+            binding.tvItemSubtitle.text = data.address
         }
 
         init {
             itemView.setOnClickListener {
-                onItemClick?.invoke(listData[adapterPosition])
+                onItemClick?.invoke(getItem(bindingAdapterPosition))
             }
         }
+    }
+
+    companion object {
+        val DIFF_CALLBACK: DiffUtil.ItemCallback<Tourism> =
+            object : DiffUtil.ItemCallback<Tourism>() {
+                override fun areItemsTheSame(oldItem: Tourism, newItem: Tourism): Boolean {
+                    return oldItem.tourismId == newItem.tourismId
+                }
+
+                override fun areContentsTheSame(oldItem: Tourism, newItem: Tourism): Boolean {
+                    return oldItem == newItem
+                }
+            }
     }
 }
