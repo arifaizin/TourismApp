@@ -1,15 +1,18 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: "kotlin-kapt"
-apply plugin: "kotlin-parcelize"
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'kotlin-parcelize'
+}
 
 android {
-    compileSdkVersion 33
+    namespace 'com.dicoding.tourismapp'
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.dicoding.tourismapp"
-        minSdkVersion 16
-        targetSdkVersion 33
+        minSdk 16
+        targetSdk 33
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -34,7 +37,6 @@ android {
     buildFeatures {
         viewBinding true
     }
-    namespace 'com.dicoding.tourismapp'
 }
 
 dependencies {
