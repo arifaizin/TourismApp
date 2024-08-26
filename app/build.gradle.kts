@@ -58,4 +58,9 @@ dependencies {
     implementation(libs.room.runtime)
     ksp(libs.room.compiler)
     androidTestImplementation(libs.room.testing)
+
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.logging.interceptor)
+
 }
