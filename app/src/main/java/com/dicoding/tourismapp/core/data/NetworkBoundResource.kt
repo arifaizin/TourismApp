@@ -21,7 +21,6 @@ abstract class NetworkBoundResource<ResultType: Any, RequestType> {
             .observeOn(AndroidSchedulers.mainThread())
             .take(1)
             .subscribe { value ->
-                dbSource.unsubscribeOn(Schedulers.io())
                 if (shouldFetch(value)) {
                     fetchFromNetwork()
                 } else {
@@ -72,11 +71,9 @@ abstract class NetworkBoundResource<ResultType: Any, RequestType> {
                             .observeOn(AndroidSchedulers.mainThread())
                             .take(1)
                             .subscribe {
-//                                dbSource.unsubscribeOn(Schedulers.io())
                                 result.onNext(Resource.Success(it))
                             }
                         subscribe.dispose()
-
                     }
                     is ApiResponse.Error -> {
                         onFetchFailed()

@@ -35,7 +35,9 @@ class TourismRepository private constructor(
     override fun getAllTourism(): Flowable<Resource<List<Tourism>>> =
         object : NetworkBoundResource<List<Tourism>, List<TourismResponse>>() {
             override fun loadFromDB(): Flowable<List<Tourism>> {
-                return localDataSource.getAllTourism().map { DataMapper.mapEntitiesToDomain(it) }
+                return localDataSource.getAllTourism().map {
+                    DataMapper.mapEntitiesToDomain(it)
+                }
             }
 
             override fun shouldFetch(data: List<Tourism>?): Boolean =
@@ -55,7 +57,9 @@ class TourismRepository private constructor(
         }.asFlowable()
 
     override fun getFavoriteTourism(): Flowable<List<Tourism>> {
-        return localDataSource.getFavoriteTourism().map { DataMapper.mapEntitiesToDomain(it) }
+        return localDataSource.getFavoriteTourism().map {
+            DataMapper.mapEntitiesToDomain(it)
+        }
     }
 
     override fun setFavoriteTourism(tourism: Tourism, state: Boolean) {
