@@ -1,7 +1,5 @@
 package com.dicoding.tourismapp.core.data
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.map
 import com.dicoding.tourismapp.core.data.source.local.LocalDataSource
 import com.dicoding.tourismapp.core.data.source.remote.RemoteDataSource
 import com.dicoding.tourismapp.core.data.source.remote.network.ApiResponse
@@ -10,9 +8,9 @@ import com.dicoding.tourismapp.core.domain.model.Tourism
 import com.dicoding.tourismapp.core.domain.repository.ITourismRepository
 import com.dicoding.tourismapp.core.utils.AppExecutors
 import com.dicoding.tourismapp.core.utils.DataMapper
-import io.reactivex.Flowable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Flowable
+import io.reactivex.rxjava3.schedulers.Schedulers
 
 class TourismRepository private constructor(
     private val remoteDataSource: RemoteDataSource,
