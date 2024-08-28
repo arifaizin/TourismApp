@@ -1,5 +1,7 @@
 package com.dicoding.tourismapp.core.data
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
 import com.dicoding.tourismapp.core.data.source.local.LocalDataSource
 import com.dicoding.tourismapp.core.data.source.remote.RemoteDataSource
 import com.dicoding.tourismapp.core.data.source.remote.network.ApiResponse
@@ -40,8 +42,8 @@ class TourismRepository private constructor(
             }
 
             override fun shouldFetch(data: List<Tourism>?): Boolean =
-//                data == null || data.isEmpty()
-                 true // ganti dengan true jika ingin selalu mengambil data dari internet
+                data.isNullOrEmpty() // mengambil data dari internet hanya jika data di database kosong
+//                 true // ganti dengan true jika ingin selalu mengambil data dari internet
 
             override suspend fun createCall(): Flow<ApiResponse<List<TourismResponse>>> =
                 remoteDataSource.getAllTourism()
