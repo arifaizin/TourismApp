@@ -1,9 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-//    alias(libs.plugins.ksp)
+    alias(libs.plugins.ksp)
     id("kotlin-parcelize")
-    id("kotlin-kapt")
 }
 
 android {
@@ -57,7 +56,7 @@ dependencies {
     implementation(libs.glide)
 
     implementation(libs.room.runtime)
-    kapt(libs.room.compiler)
+    ksp(libs.room.compiler)
     androidTestImplementation(libs.room.testing)
 
     implementation(libs.retrofit)
@@ -70,7 +69,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.livedata.ktx)
 
     implementation(libs.dagger)
-    kapt(libs.dagger.compiler)
+    ksp(libs.dagger.compiler)
 
     implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.fragment.ktx)

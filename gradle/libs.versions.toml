@@ -1,7 +1,7 @@
 [versions]
 agp = "8.5.2"
 kotlin = "1.9.0"
-ksp = "2.0.10-1.0.24"
+ksp = "1.9.0-1.0.12"
 coreKtx = "1.13.1"
 appcompat = "1.7.0"
 constraintLayout= "2.1.4"
@@ -16,7 +16,7 @@ retrofit = "2.11.0"
 loggingInterceptor = "4.12.0"
 kotlinxCoroutines = "1.8.1"
 lifecycle = "2.8.4"
-dagger = "2.24"
+dagger = "2.52"
 activityKtx = "1.9.1"
 fragmentKtx = "1.8.2"
 
