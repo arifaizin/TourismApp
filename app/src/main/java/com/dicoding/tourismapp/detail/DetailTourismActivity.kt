@@ -5,20 +5,25 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.IntentCompat.getParcelableExtra
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.dicoding.tourismapp.MyApplication
 import com.dicoding.tourismapp.R
 import com.dicoding.tourismapp.core.domain.model.Tourism
 import com.dicoding.tourismapp.core.ui.ViewModelFactory
 import com.dicoding.tourismapp.databinding.ActivityDetailTourismBinding
+import javax.inject.Inject
 
 class DetailTourismActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailTourismBinding
-    private lateinit var detailTourismViewModel: DetailTourismViewModel
 
+    @Inject
+    lateinit var factory: ViewModelFactory
+
+    private val detailTourismViewModel: DetailTourismViewModel by viewModels {
+        factory
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         (application as MyApplication).appComponent.inject(this)
 
