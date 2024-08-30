@@ -4,13 +4,10 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.content.IntentCompat.getParcelableExtra
 import com.bumptech.glide.Glide
 import com.dicoding.tourismapp.R
 import com.dicoding.tourismapp.core.domain.model.Tourism
-import com.dicoding.tourismapp.core.ui.ViewModelFactory
 import com.dicoding.tourismapp.databinding.ActivityDetailTourismBinding
-import javax.inject.Inject
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,12 +15,14 @@ class DetailTourismActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailTourismBinding
 
-    @Inject
-    lateinit var factory: ViewModelFactory
+    private val detailTourismViewModel: DetailTourismViewModel by viewModels()
 
-    private val detailTourismViewModel: DetailTourismViewModel by viewModels {
-        factory
-    }
+//    @Inject
+//    lateinit var factory: ViewModelFactory
+//
+//    private val detailTourismViewModel: DetailTourismViewModel by viewModels {
+//        factory
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

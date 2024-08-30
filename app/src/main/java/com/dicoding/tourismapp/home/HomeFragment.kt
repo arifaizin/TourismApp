@@ -15,6 +15,7 @@ import com.dicoding.tourismapp.databinding.FragmentHomeBinding
 import com.dicoding.tourismapp.detail.DetailTourismActivity
 import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private val homeViewModel: HomeViewModel by viewModels()
@@ -22,9 +23,12 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private val homeViewModel: HomeViewModel by viewModels {
-        factory
-    }
+//    @Inject
+//    lateinit var factory: ViewModelFactory
+//
+//    private val homeViewModel: HomeViewModel by viewModels {
+//        factory
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

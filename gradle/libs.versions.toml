@@ -16,7 +16,7 @@ retrofit = "2.11.0"
 loggingInterceptor = "4.12.0"
 kotlinxCoroutines = "1.8.1"
 lifecycle = "2.8.4"
-dagger = "2.52"
+hilt = "2.52"
 activityKtx = "1.9.1"
 fragmentKtx = "1.8.2"
 
@@ -40,8 +40,8 @@ kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-c
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle" }
-dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
-dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
 androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtx" }
 androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtx" }
 
@@ -49,4 +49,4 @@ androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp"}
-
+hiltAndroid = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
