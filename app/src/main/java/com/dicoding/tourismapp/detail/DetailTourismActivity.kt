@@ -4,16 +4,18 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.content.IntentCompat.getParcelableExtra
 import com.bumptech.glide.Glide
 import com.dicoding.tourismapp.MyApplication
 import com.dicoding.tourismapp.R
 import com.dicoding.tourismapp.core.domain.model.Tourism
 import com.dicoding.tourismapp.core.ui.ViewModelFactory
-import kotlinx.android.synthetic.main.activity_detail_tourism.*
-import kotlinx.android.synthetic.main.content_detail_tourism.*
+import com.dicoding.tourismapp.databinding.ActivityDetailTourismBinding
 import javax.inject.Inject
 
 class DetailTourismActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityDetailTourismBinding
 
     @Inject
     lateinit var factory: ViewModelFactory
@@ -22,36 +24,33 @@ class DetailTourismActivity : AppCompatActivity() {
         factory
     }
 
-    companion object {
-        const val EXTRA_DATA = "extra_data"
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         (application as MyApplication).appComponent.inject(this)
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail_tourism)
-        setSupportActionBar(toolbar)
+        binding = ActivityDetailTourismBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
 
 //        hapus kode berikut
 //        val factory = DetailTourismViewModelFactory.getInstance(this)
 //        detailTourismViewModel = ViewModelProvider(this, factory)[DetailTourismViewModel::class.java]
 
-        val detailTourism = intent.getParcelableExtra<Tourism>(EXTRA_DATA)
+        val detailTourism = getParcelableExtra(intent, EXTRA_DATA, Tourism::class.java)
         showDetailTourism(detailTourism)
     }
 
     private fun showDetailTourism(detailTourism: Tourism?) {
         detailTourism?.let {
             supportActionBar?.title = detailTourism.name
-            tv_detail_description.text = detailTourism.description
+            binding.contentDetailTourism.tvDetailDescription.text = detailTourism.description
             Glide.with(this@DetailTourismActivity)
                 .load(detailTourism.image)
-                .into(text_detail_image)
+                .into(binding.ivDetailImage)
 
             var statusFavorite = detailTourism.isFavorite
             setStatusFavorite(statusFavorite)
-            fab.setOnClickListener {
+            binding.fab.setOnClickListener {
                 statusFavorite = !statusFavorite
                 detailTourismViewModel.setFavoriteTourism(detailTourism, statusFavorite)
                 setStatusFavorite(statusFavorite)
@@ -61,9 +60,13 @@ class DetailTourismActivity : AppCompatActivity() {
 
     private fun setStatusFavorite(statusFavorite: Boolean) {
         if (statusFavorite) {
-            fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_favorite_white))
+            binding.fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_favorite_white))
         } else {
-            fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_not_favorite_white))
+            binding.fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_not_favorite_white))
         }
+    }
+
+    companion object {
+        const val EXTRA_DATA = "extra_data"
     }
 }
