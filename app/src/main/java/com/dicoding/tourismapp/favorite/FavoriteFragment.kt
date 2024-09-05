@@ -6,13 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.tourismapp.core.ui.TourismAdapter
 import com.dicoding.tourismapp.databinding.FragmentFavoriteBinding
 import com.dicoding.tourismapp.detail.DetailTourismActivity
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FavoriteFragment : Fragment() {
 
@@ -43,10 +41,11 @@ class FavoriteFragment : Fragment() {
                 startActivity(intent)
             }
 
-            favoriteViewModel.favoriteTourism.observe(viewLifecycleOwner, Observer { dataTourism ->
-                tourismAdapter.setData(dataTourism)
-                view_empty.visibility = if (dataTourism.isNotEmpty()) View.GONE else View.VISIBLE
-            })
+            favoriteViewModel.favoriteTourism.observe(viewLifecycleOwner) { dataTourism ->
+                tourismAdapter.submitList(dataTourism)
+                binding.viewEmpty.root.visibility =
+                    if (dataTourism.isNotEmpty()) View.GONE else View.VISIBLE
+            }
 
             with(binding.rvTourism) {
                 layoutManager = LinearLayoutManager(context)
