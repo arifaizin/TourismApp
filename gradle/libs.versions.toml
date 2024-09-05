@@ -18,7 +18,7 @@ retrofit = "2.11.0"
 loggingInterceptor = "4.12.0"
 kotlinxCoroutines = "1.8.1"
 lifecycle = "2.8.5"
-koinAndroid = "3.5.6"
+koin = "3.5.6"
 
 [libraries]
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
@@ -42,7 +42,7 @@ kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-c
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle" }
-koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinAndroid" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
