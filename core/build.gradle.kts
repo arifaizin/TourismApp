@@ -39,9 +39,9 @@ android {
 
 dependencies {
 
-    implementation(libs.recyclerview)
-    implementation(libs.material)
-    implementation(libs.glide)
+    api(libs.recyclerview)
+    api(libs.material)
+    api(libs.glide)
 
     implementation(libs.room.runtime)
     ksp(libs.room.compiler)
@@ -56,5 +56,5 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.lifecycle.livedata.ktx)
 
-    implementation(libs.koin.android)
+    api(libs.koin.android)
 }
