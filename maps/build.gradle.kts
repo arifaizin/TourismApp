@@ -1,19 +1,14 @@
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.dynamic.feature)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.ksp)
 }
-
 android {
-    namespace = "com.dicoding.tourismapp"
+    namespace = "com.dicoding.tourismapp.maps"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.dicoding.tourismapp"
         minSdk = 24
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -26,20 +21,20 @@ android {
             )
         }
     }
+
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "1.8"
     }
     buildFeatures {
         viewBinding = true
-        buildConfig = true
     }
-    dynamicFeatures += setOf(":maps")
 }
 
 dependencies {
     implementation(project(":core"))
+    implementation(project(":app"))
 }
