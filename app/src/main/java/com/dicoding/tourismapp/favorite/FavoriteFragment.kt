@@ -18,13 +18,6 @@ class FavoriteFragment : Fragment() {
 
     private val favoriteViewModel: FavoriteViewModel by viewModels()
 
-//    @Inject
-//    lateinit var factory: ViewModelFactory
-//
-//    private val favoriteViewModel: FavoriteViewModel by viewModels {
-//        factory
-//    }
-
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
     override fun onCreateView(

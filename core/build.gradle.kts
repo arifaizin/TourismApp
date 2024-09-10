@@ -63,9 +63,6 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.lifecycle.livedata.ktx)
 
-    implementation(libs.androidx.activity.ktx)
-    implementation(libs.androidx.fragment.ktx)
-
-    api(libs.hilt.android)
+    implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
 }

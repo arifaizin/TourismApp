@@ -1,4 +1,4 @@
-package com.dicoding.tourismapp.core.domain.repository;
+package com.dicoding.tourismapp.core.domain.repository
 
 import com.dicoding.tourismapp.core.data.Resource
 import com.dicoding.tourismapp.core.domain.model.Tourism

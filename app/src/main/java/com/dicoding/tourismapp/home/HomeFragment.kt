@@ -23,13 +23,6 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-//    @Inject
-//    lateinit var factory: ViewModelFactory
-//
-//    private val homeViewModel: HomeViewModel by viewModels {
-//        factory
-//    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
