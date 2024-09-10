@@ -1,4 +1,4 @@
-package com.dicoding.core
+package com.dicoding.tourismapp.core
 
 import org.junit.Test
 
