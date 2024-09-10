@@ -1,8 +1,9 @@
 package com.dicoding.core.data.source.remote
 
-import com.dicoding.core.data.source.remote.network.ApiResponse
-import com.dicoding.core.data.source.remote.network.ApiService
-import com.dicoding.core.data.source.remote.response.TourismResponse
+import android.util.Log
+import com.dicoding.tourismapp.core.data.source.remote.network.ApiResponse
+import com.dicoding.tourismapp.core.data.source.remote.network.ApiService
+import com.dicoding.tourismapp.core.data.source.remote.response.TourismResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -26,6 +27,7 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
                 }
             } catch (e : Exception){
                 emit(ApiResponse.Error(e.toString()))
+                Log.e("RemoteDataSource", e.toString())
             }
         }.flowOn(Dispatchers.IO)
     }

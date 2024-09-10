@@ -1,6 +1,5 @@
 package com.dicoding.tourismapp.home
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,41 +7,40 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dicoding.tourismapp.MyApplication
 import com.dicoding.tourismapp.R
-import com.dicoding.core.data.Resource
-import com.dicoding.core.ui.TourismAdapter
-import com.dicoding.tourismapp.di.ViewModelFactory
+import com.dicoding.tourismapp.core.data.Resource
+import com.dicoding.tourismapp.core.ui.TourismAdapter
+import com.dicoding.tourismapp.databinding.FragmentHomeBinding
 import com.dicoding.tourismapp.detail.DetailTourismActivity
-import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.view_error.*
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
+
+    private val homeViewModel: HomeViewModel by viewModels()
+
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
+
+//    @Inject
+//    lateinit var factory: ViewModelFactory
+//
+//    private val homeViewModel: HomeViewModel by viewModels {
+//        factory
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+    ): View {
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        (requireActivity().application as MyApplication).appComponent.inject(this)
-    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    @Inject
-    lateinit var factory: ViewModelFactory
-
-    private val viewModel: HomeViewModel by viewModels {
-        factory
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         if (activity != null) {
 
             val tourismAdapter = TourismAdapter()
@@ -51,24 +49,26 @@ class HomeFragment : Fragment() {
                 intent.putExtra(DetailTourismActivity.EXTRA_DATA, selectedData)
                 startActivity(intent)
             }
-            viewModel.getTourism().observe(viewLifecycleOwner, Observer { tourism ->
+
+            homeViewModel.tourism.observe(viewLifecycleOwner) { tourism ->
                 if (tourism != null) {
                     when (tourism) {
-                        is Resource.Loading -> progress_bar.visibility = View.VISIBLE
+                        is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
                         is Resource.Success -> {
-                            progress_bar.visibility = View.GONE
-                            tourismAdapter.setData(tourism.data)
+                            binding.progressBar.visibility = View.GONE
+                            tourismAdapter.submitList(tourism.data)
                         }
                         is Resource.Error -> {
-                            progress_bar.visibility = View.GONE
-                            view_error.visibility = View.VISIBLE
-                            tv_error.text = tourism.message ?: getString(R.string.something_wrong)
+                            binding.progressBar.visibility = View.GONE
+                            binding.viewError.root.visibility = View.VISIBLE
+                            binding.viewError.tvError.text =
+                                tourism.message ?: getString(R.string.something_wrong)
                         }
                     }
                 }
-            })
+            }
 
-            with(rv_tourism) {
+            with(binding.rvTourism) {
                 layoutManager = LinearLayoutManager(context)
                 setHasFixedSize(true)
                 adapter = tourismAdapter

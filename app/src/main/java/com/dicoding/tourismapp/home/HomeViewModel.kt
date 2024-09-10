@@ -2,11 +2,12 @@ package com.dicoding.tourismapp.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import com.dicoding.core.domain.GetAllTourismUseCase
-import com.dicoding.core.domain.UseCase
+import com.dicoding.tourismapp.core.domain.usecase.TourismUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-class HomeViewModel @Inject constructor(private val getAllTourismUseCase: GetAllTourismUseCase) : ViewModel() {
-    fun getTourism() = getAllTourismUseCase.run(UseCase.None()).asLiveData()
+@HiltViewModel
+class HomeViewModel @Inject constructor(tourismUseCase: TourismUseCase) : ViewModel() {
+    val tourism = tourismUseCase.getAllTourism().asLiveData()
 }
 
