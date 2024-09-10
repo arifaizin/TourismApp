@@ -17,13 +17,6 @@ class DetailTourismActivity : AppCompatActivity() {
 
     private val detailTourismViewModel: DetailTourismViewModel by viewModels()
 
-//    @Inject
-//    lateinit var factory: ViewModelFactory
-//
-//    private val detailTourismViewModel: DetailTourismViewModel by viewModels {
-//        factory
-//    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailTourismBinding.inflate(layoutInflater)
