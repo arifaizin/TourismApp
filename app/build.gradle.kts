@@ -72,9 +72,6 @@ dependencies {
 //    implementation(libs.dagger)
 //    ksp(libs.dagger.compiler)
 
-//    implementation(libs.androidx.activity.ktx)
-//    implementation(libs.androidx.fragment.ktx)
-
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
 }
