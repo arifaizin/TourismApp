@@ -1,3 +1,14 @@
+-dontwarn com.dicoding.tourismapp.core.data.Resource$Error
+-dontwarn com.dicoding.tourismapp.core.data.Resource$Loading
+-dontwarn com.dicoding.tourismapp.core.data.Resource$Success
+-dontwarn com.dicoding.tourismapp.core.data.Resource
+-dontwarn com.dicoding.tourismapp.core.di.CoreModuleKt
+-dontwarn com.dicoding.tourismapp.core.domain.model.Tourism
+-dontwarn com.dicoding.tourismapp.core.domain.repository.ITourismRepository
+-dontwarn com.dicoding.tourismapp.core.domain.usecase.TourismInteractor
+-dontwarn com.dicoding.tourismapp.core.domain.usecase.TourismUseCase
+-dontwarn com.dicoding.tourismapp.core.ui.TourismAdapter
+
 ##---------------Begin: proguard configuration for SQLCipher  ----------
 -keep,includedescriptorclasses class net.sqlcipher.** { *; }
 -keep,includedescriptorclasses interface net.sqlcipher.** { *; }
