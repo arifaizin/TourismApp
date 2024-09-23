@@ -15,10 +15,11 @@ room = "2.6.1"
 retrofit = "2.11.0"
 loggingInterceptor = "4.12.0"
 kotlinxCoroutines = "1.8.1"
-lifecycle = "2.8.5"
+lifecycle = "2.8.6"
 koin = "3.5.6"
 androidDatabaseSqlcipher = "4.5.4"
 sqliteKtx = "2.4.0"
+lottie = "6.4.1"
 
 [libraries]
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
@@ -43,6 +44,7 @@ androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-lived
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 android-database-sqlcipher = { module = "net.zetetic:android-database-sqlcipher", version.ref = "androidDatabaseSqlcipher" }
 androidx-sqlite-ktx = { module = "androidx.sqlite:sqlite-ktx", version.ref = "sqliteKtx" }
+lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
