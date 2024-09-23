@@ -1,12 +1,12 @@
 package com.dicoding.tourismapp.maps
 
-import android.content.Intent
-import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.Observer
+import androidx.appcompat.app.AppCompatActivity
 import com.dicoding.tourismapp.core.data.Resource
+import com.dicoding.tourismapp.maps.databinding.ActivityMapsBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.dicoding.tourismapp.core.domain.model.Tourism
 import com.dicoding.tourismapp.detail.DetailTourismActivity
 import com.dicoding.tourismapp.maps.di.mapsModule
@@ -19,8 +19,6 @@ import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions
-import kotlinx.android.synthetic.main.activity_maps.*
-import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.context.loadKoinModules
 
 class MapsActivity : AppCompatActivity() {
@@ -32,13 +30,13 @@ class MapsActivity : AppCompatActivity() {
     private lateinit var mapboxMap: MapboxMap
 
     private val mapsViewModel: MapsViewModel by viewModel()
+    private lateinit var binding: ActivityMapsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        binding = ActivityMapsBinding.inflate(layoutInflater)
         Mapbox.getInstance(this, getString(R.string.mapbox_access_token))
-
-        setContentView(R.layout.activity_maps)
+        setContentView(binding.root)
 
         loadKoinModules(mapsModule)
         supportActionBar?.title = "Tourism Map"
@@ -51,22 +49,23 @@ class MapsActivity : AppCompatActivity() {
     }
 
     private fun getTourismData() {
-        mapsViewModel.tourism.observe(this, Observer { tourism ->
+        mapsViewModel.tourism.observe(this) { tourism ->
             if (tourism != null) {
                 when (tourism) {
-                    is Resource.Loading -> progress_bar.visibility = View.VISIBLE
+                    is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
                     is Resource.Success -> {
-                        progress_bar.visibility = View.GONE
+                        binding.progressBar.visibility = View.GONE
                         showMarker(tourism.data)
                     }
+
                     is Resource.Error -> {
-                        progress_bar.visibility = View.GONE
-                        tv_error.visibility = View.VISIBLE
-                        tv_error.text = tourism.message
+                        binding.progressBar.visibility = View.GONE
+                        binding.tvError.visibility = View.VISIBLE
+                        binding.tvError.text = tourism.message
                     }
                 }
             }
-        })
+        }
     }
 
     private fun showMarker(dataTourism: List<Tourism>?) {
