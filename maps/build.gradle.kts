@@ -27,4 +27,5 @@ android {
 dependencies {
     implementation(project(":core"))
     implementation(project(":app"))
+    implementation(libs.mapbox.maps.android)
 }

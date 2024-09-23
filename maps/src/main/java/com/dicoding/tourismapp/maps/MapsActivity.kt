@@ -1,24 +1,27 @@
 package com.dicoding.tourismapp.maps
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.dicoding.tourismapp.core.data.Resource
-import com.dicoding.tourismapp.maps.databinding.ActivityMapsBinding
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.dicoding.tourismapp.core.domain.model.Tourism
 import com.dicoding.tourismapp.detail.DetailTourismActivity
-import com.dicoding.tourismapp.maps.di.mapsModule
-import com.google.gson.Gson
-import com.mapbox.mapboxsdk.Mapbox
-import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
-import com.mapbox.mapboxsdk.geometry.LatLng
-import com.mapbox.mapboxsdk.geometry.LatLngBounds
-import com.mapbox.mapboxsdk.maps.MapboxMap
-import com.mapbox.mapboxsdk.maps.Style
-import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
-import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions
+import com.dicoding.tourismapp.maps.databinding.ActivityMapsBinding
+import com.mapbox.common.MapboxOptions
+import com.mapbox.geojson.Point
+import com.mapbox.maps.Style
+import com.mapbox.maps.extension.style.layers.properties.generated.IconAnchor
+import com.mapbox.maps.extension.style.layers.properties.generated.ProjectionName
+import com.mapbox.maps.extension.style.projection.generated.projection
+import com.mapbox.maps.extension.style.style
+import com.mapbox.maps.plugin.annotation.annotations
+import com.mapbox.maps.plugin.annotation.generated.OnPointAnnotationClickListener
+import com.mapbox.maps.plugin.annotation.generated.PointAnnotationOptions
+import com.mapbox.maps.plugin.annotation.generated.createPointAnnotationManager
+import com.mapbox.maps.plugin.scalebar.scalebar
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.context.loadKoinModules
 
 class MapsActivity : AppCompatActivity() {
@@ -27,25 +30,30 @@ class MapsActivity : AppCompatActivity() {
         private const val ICON_ID = "ICON_ID"
     }
 
-    private lateinit var mapboxMap: MapboxMap
+//    private lateinit var mapboxMap: MapboxMap
 
     private val mapsViewModel: MapsViewModel by viewModel()
     private lateinit var binding: ActivityMapsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        MapboxOptions.accessToken = getString(R.string.mapbox_access_token)
         binding = ActivityMapsBinding.inflate(layoutInflater)
-        Mapbox.getInstance(this, getString(R.string.mapbox_access_token))
         setContentView(binding.root)
+
+        binding.mapView.scalebar.enabled = false
+        binding.mapView.mapboxMap.apply {
+            loadStyle(
+                style(Style.STANDARD) {
+                    +projection(ProjectionName.MERCATOR)
+                }
+            )
+        }
 
         loadKoinModules(mapsModule)
         supportActionBar?.title = "Tourism Map"
 
-        mapView?.onCreate(savedInstanceState)
-        mapView?.getMapAsync { mapboxMap ->
-            this.mapboxMap = mapboxMap
-            getTourismData()
-        }
+        getTourismData()
     }
 
     private fun getTourismData() {
@@ -69,34 +77,25 @@ class MapsActivity : AppCompatActivity() {
     }
 
     private fun showMarker(dataTourism: List<Tourism>?) {
-        mapboxMap.setStyle(Style.MAPBOX_STREETS) { style ->
-            style.addImage(ICON_ID, BitmapFactory.decodeResource(resources, R.drawable.mapbox_marker_icon_default))
-            val latLngBoundsBuilder = LatLngBounds.Builder()
-
-            val symbolManager = SymbolManager(mapView, mapboxMap, style)
-            symbolManager.iconAllowOverlap = true
-
-            val options = ArrayList<SymbolOptions>()
-            dataTourism?.forEach { data ->
-                latLngBoundsBuilder.include(LatLng(data.latitude, data.longitude))
-                options.add(
-                    SymbolOptions()
-                        .withLatLng(LatLng(data.latitude, data.longitude))
-                        .withIconImage(ICON_ID)
-                        .withData(Gson().toJsonTree(data))
-                )
-            }
-            symbolManager.create(options)
-
-            val latLngBounds = latLngBoundsBuilder.build()
-            mapboxMap.easeCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds, 50), 5000)
-
-            symbolManager.addClickListener { symbol ->
-                val data = Gson().fromJson(symbol.data, Tourism::class.java)
+        dataTourism?.forEach { data ->
+            val annotationApi = binding.mapView.annotations
+            val pointAnnotationManager = annotationApi.createPointAnnotationManager()
+            val pointAnnotationOptions = PointAnnotationOptions()
+                .withPoint(Point.fromLngLat(data.longitude, data.latitude))
+                .withIconImage(BitmapFactory.decodeResource(resources, R.drawable.red_marker))
+                .withIconAnchor(IconAnchor.BOTTOM)
+                .withIconSize(0.3)
+            pointAnnotationManager.create(pointAnnotationOptions)
+            pointAnnotationManager.addClickListener(OnPointAnnotationClickListener { data ->
+                val selectedTourism: Tourism =
+                    dataTourism.first {
+                        it.longitude == data.point.longitude() && it.latitude == data.point.latitude()
+                    }
                 val intent = Intent(this, DetailTourismActivity::class.java)
-                intent.putExtra(DetailTourismActivity.EXTRA_DATA, data)
+                intent.putExtra(DetailTourismActivity.EXTRA_DATA, selectedTourism)
                 startActivity(intent)
-            }
+                true
+            })
         }
     }
 }

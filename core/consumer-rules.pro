@@ -78,6 +78,8 @@
   *** rewind();
 }
 
+-dontwarn com.mapbox.maps.plugin.attribution.R$style
+
 # Uncomment for DexGuard only
 #-keepresourcexmlelements manifest/application/meta-data@value=GlideModule
 
