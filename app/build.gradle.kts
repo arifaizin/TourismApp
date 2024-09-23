@@ -50,4 +50,5 @@ android {
 dependencies {
     implementation(project(":core"))
     implementation(libs.lottie)
+    implementation(libs.shimmer)
 }
