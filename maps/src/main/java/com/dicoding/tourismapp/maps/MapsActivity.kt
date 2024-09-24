@@ -9,7 +9,6 @@ import com.dicoding.tourismapp.core.data.Resource
 import com.dicoding.tourismapp.core.domain.model.Tourism
 import com.dicoding.tourismapp.detail.DetailTourismActivity
 import com.dicoding.tourismapp.maps.databinding.ActivityMapsBinding
-import com.mapbox.common.MapboxOptions
 import com.mapbox.geojson.Point
 import com.mapbox.maps.Style
 import com.mapbox.maps.extension.style.layers.properties.generated.IconAnchor
@@ -26,18 +25,11 @@ import org.koin.core.context.loadKoinModules
 
 class MapsActivity : AppCompatActivity() {
 
-    companion object {
-        private const val ICON_ID = "ICON_ID"
-    }
-
-//    private lateinit var mapboxMap: MapboxMap
-
     private val mapsViewModel: MapsViewModel by viewModel()
     private lateinit var binding: ActivityMapsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        MapboxOptions.accessToken = getString(R.string.mapbox_access_token)
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
