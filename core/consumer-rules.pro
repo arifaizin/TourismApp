@@ -37,7 +37,6 @@
 
 ##---------------End: proguard configuration for Gson  ----------
 
-
 ##---------------Begin: proguard configuration for Retrofit  ----------
 # Retrofit does reflection on generic parameters. InnerClasses is required to use Signature and
 # EnclosingMethod is required to use InnerClasses.
