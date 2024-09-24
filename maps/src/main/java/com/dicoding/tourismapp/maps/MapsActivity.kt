@@ -9,6 +9,7 @@ import com.dicoding.tourismapp.core.data.Resource
 import com.dicoding.tourismapp.core.domain.model.Tourism
 import com.dicoding.tourismapp.detail.DetailTourismActivity
 import com.dicoding.tourismapp.maps.databinding.ActivityMapsBinding
+import com.google.gson.Gson
 import com.mapbox.geojson.Point
 import com.mapbox.maps.Style
 import com.mapbox.maps.extension.style.layers.properties.generated.IconAnchor
@@ -16,7 +17,6 @@ import com.mapbox.maps.extension.style.layers.properties.generated.ProjectionNam
 import com.mapbox.maps.extension.style.projection.generated.projection
 import com.mapbox.maps.extension.style.style
 import com.mapbox.maps.plugin.annotation.annotations
-import com.mapbox.maps.plugin.annotation.generated.OnPointAnnotationClickListener
 import com.mapbox.maps.plugin.annotation.generated.PointAnnotationOptions
 import com.mapbox.maps.plugin.annotation.generated.createPointAnnotationManager
 import com.mapbox.maps.plugin.scalebar.scalebar
@@ -33,17 +33,15 @@ class MapsActivity : AppCompatActivity() {
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.mapView.scalebar.enabled = false
-        binding.mapView.mapboxMap.apply {
-            loadStyle(
-                style(Style.STANDARD) {
-                    +projection(ProjectionName.MERCATOR)
-                }
-            )
-        }
-
         loadKoinModules(mapsModule)
         supportActionBar?.title = "Tourism Map"
+
+        binding.mapView.scalebar.enabled = false
+        binding.mapView.mapboxMap.apply {
+            loadStyle(style(Style.STANDARD) {
+                +projection(ProjectionName.MERCATOR)
+            })
+        }
 
         getTourismData()
     }
@@ -72,22 +70,20 @@ class MapsActivity : AppCompatActivity() {
         dataTourism?.forEach { data ->
             val annotationApi = binding.mapView.annotations
             val pointAnnotationManager = annotationApi.createPointAnnotationManager()
-            val pointAnnotationOptions = PointAnnotationOptions()
-                .withPoint(Point.fromLngLat(data.longitude, data.latitude))
-                .withIconImage(BitmapFactory.decodeResource(resources, R.drawable.red_marker))
-                .withIconAnchor(IconAnchor.BOTTOM)
-                .withIconSize(0.3)
+            val pointAnnotationOptions =
+                PointAnnotationOptions().withPoint(Point.fromLngLat(data.longitude, data.latitude))
+                    .withIconImage(BitmapFactory.decodeResource(resources, R.drawable.red_marker))
+                    .withIconAnchor(IconAnchor.BOTTOM)
+                    .withIconSize(0.3)
+                    .withData(Gson().toJsonTree(data))
             pointAnnotationManager.create(pointAnnotationOptions)
-            pointAnnotationManager.addClickListener(OnPointAnnotationClickListener { data ->
-                val selectedTourism: Tourism =
-                    dataTourism.first {
-                        it.longitude == data.point.longitude() && it.latitude == data.point.latitude()
-                    }
+            pointAnnotationManager.addClickListener { annotation ->
+                val selectedTourism = Gson().fromJson(annotation.getData(), Tourism::class.java)
                 val intent = Intent(this, DetailTourismActivity::class.java)
                 intent.putExtra(DetailTourismActivity.EXTRA_DATA, selectedTourism)
                 startActivity(intent)
                 true
-            })
+            }
         }
     }
 }
